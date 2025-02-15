@@ -24,6 +24,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-particles": "^2.12.2",
+    "react-scroll-parallax": "^3.4.5",
     "split-type": "^0.3.4",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
