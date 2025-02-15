@@ -1,8 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Facebook, Github, Instagram, Linkedin, Twitter } from "lucide-react"
 import Link from "next/link"
+import { Facebook, Twitter, Instagram, Linkedin, Github } from "lucide-react"
 
 export function Footer() {
     const socialLinks = [
@@ -14,8 +14,8 @@ export function Footer() {
     ]
 
     return (
-        <footer className="relative py-20 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent" />
+        <footer className="relative py-20 bg-black overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-black" />
 
             <div className="container mx-auto px-4 relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
@@ -92,7 +92,6 @@ export function Footer() {
                 </div>
             </div>
 
-            {/* Decorative elements */}
             <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-20 bg-gradient-to-t from-cyan-500 to-transparent" />
         </footer>
