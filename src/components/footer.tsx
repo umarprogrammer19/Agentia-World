@@ -1,8 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { Facebook, Github, Instagram, Linkedin, Twitter } from "lucide-react"
 import Link from "next/link"
-import { Facebook, Twitter, Instagram, Linkedin, Github } from "lucide-react"
 
 export function Footer() {
     const socialLinks = [

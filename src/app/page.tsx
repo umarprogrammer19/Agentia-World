@@ -8,7 +8,7 @@ import { Features } from "@/components/features"
 // import { Testimonials } from "@/components/testimonials"
 import { Pricing } from "@/components/pricing"
 import { Contact } from "@/components/contact"
-// import { Footer } from "@/components/footer"
+import { Footer } from "@/components/footer"
 import { ThreeBackground } from "@/components/three-background"
 // import { LocomotiveScrollProvider } from "@/components/locomotive-scroll"
 import gsap from "gsap"
@@ -32,7 +32,7 @@ export default function Page() {
           <Pricing />
           <Contact />
         </main>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     // </LocomotiveScrollProvider>
   )
