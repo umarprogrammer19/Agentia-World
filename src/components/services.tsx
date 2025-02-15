@@ -1,6 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useRef } from "react"
+import { useInView } from "framer-motion"
 
 const services = [
     {
@@ -30,8 +32,17 @@ const services = [
 ]
 
 function Card({ title, description, image }: { title: string; description: string; image: string }) {
+    const ref = useRef(null)
+    const isInView = useInView(ref, { once: true })
+
     return (
-        <div className="relative overflow-hidden rounded-xl group">
+        <motion.div
+            ref={ref}
+            initial={{ opacity: 0, y: 50 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="relative overflow-hidden rounded-xl group"
+        >
             <img
                 src={image || "/placeholder.svg"}
                 alt={title}
@@ -42,7 +53,7 @@ function Card({ title, description, image }: { title: string; description: strin
                 <h3 className="text-2xl font-bold mb-2 text-white">{title}</h3>
                 <p className="text-gray-300">{description}</p>
             </div>
-        </div>
+        </motion.div>
     )
 }
 
@@ -66,14 +77,7 @@ export function Services() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {services.map((service, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                        >
-                            <Card {...service} />
-                        </motion.div>
+                        <Card key={index} {...service} />
                     ))}
                 </div>
             </div>
