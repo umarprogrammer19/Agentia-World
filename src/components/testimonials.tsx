@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useInView } from "react-intersection-observer"
 import Image from "next/image"
 import { Quote } from "lucide-react"
 
@@ -30,14 +31,19 @@ const testimonials = [
 ]
 
 export function Testimonials() {
+    const [ref, inView] = useInView({
+        triggerOnce: true,
+        threshold: 0.1,
+    })
+
     return (
-        <section className="py-24 relative overflow-hidden">
+        <section ref={ref} className="py-24 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-900/10 to-black" />
 
             <div className="container mx-auto px-4 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
@@ -54,7 +60,7 @@ export function Testimonials() {
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
+                            animate={inView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.6, delay: index * 0.1 }}
                             className="relative p-8 rounded-xl bg-gradient-to-br from-cyan-500/5 to-purple-500/5 border border-white/10"
                         >
@@ -76,7 +82,12 @@ export function Testimonials() {
                                 </div>
                             </div>
 
-                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            <motion.div
+                                className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-purple-500"
+                                initial={{ scaleX: 0 }}
+                                animate={inView ? { scaleX: 1 } : {}}
+                                transition={{ duration: 0.6, delay: index * 0.1 + 0.3 }}
+                            />
                         </motion.div>
                     ))}
                 </div>
