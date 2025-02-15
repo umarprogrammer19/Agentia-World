@@ -1,23 +1,19 @@
-"use client"
+"use client";
 
-import { useCallback } from "react"
-import Particles from "react-particles"
-import type { Container, Engine } from "tsparticles-engine"
-import { loadFull } from "tsparticles"
+import type { Container } from "@tsparticles/engine";
+import Particles from "@tsparticles/react";
+import { useCallback } from "react";
 
 export function ParticlesBackground() {
-    // const particlesInit = useCallback(async (engine: Engine) => await loadFull(engine), [])
-
-    const particlesLoaded = useCallback(async (container: Container | undefined) => {
-        await console.log(container)
-    }, [])
+    const particlesLoaded = useCallback(async (container?: Container) => {
+        console.log(container);
+    }, []);
 
     return (
         <Particles
             className="absolute inset-0"
             id="tsparticles"
-            // init={particlesInit}
-            loaded={particlesLoaded}
+            particlesLoaded={particlesLoaded} 
             options={{
                 background: {
                     color: {
@@ -27,20 +23,15 @@ export function ParticlesBackground() {
                 fpsLimit: 120,
                 interactivity: {
                     events: {
-                        onClick: {
-                            enable: false,
-                            mode: "push",
-                        },
                         onHover: {
                             enable: true,
                             mode: "repulse",
                         },
-                        resize: true,
+                        resize: {
+                            enable: true,
+                        },
                     },
                     modes: {
-                        push: {
-                            quantity: 4,
-                        },
                         repulse: {
                             distance: 200,
                             duration: 0.4,
@@ -59,19 +50,15 @@ export function ParticlesBackground() {
                         width: 1,
                     },
                     move: {
-                        direction: "none",
                         enable: true,
+                        speed: 1,
                         outModes: {
                             default: "bounce",
                         },
-                        random: false,
-                        speed: 1,
-                        straight: false,
                     },
                     number: {
                         density: {
                             enable: true,
-                            area: 800,
                         },
                         value: 80,
                     },
@@ -88,6 +75,5 @@ export function ParticlesBackground() {
                 detectRetina: true,
             }}
         />
-    )
+    );
 }
-
