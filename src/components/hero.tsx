@@ -1,84 +1,139 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
+import * as THREE from "three"
+import { Canvas, useFrame, useThree } from "@react-three/fiber"
+import { useGLTF, Float, Environment } from "@react-three/drei"
 import gsap from "gsap"
-import SplitType from "split-type"
 import { Button } from "@/components/ui/button"
 
-export function Hero() {
-    const headingRef = useRef<HTMLHeadingElement>(null)
-    const subheadingRef = useRef<HTMLParagraphElement>(null)
+function Model({ url }: { url: string }) {
+    const { scene } = useGLTF(url)
+    return <primitive object={scene} />
+}
+
+function FloatingModel() {
+    return (
+        <Float speed={1.4} rotationIntensity={1} floatIntensity={2}>
+            <Model url="/brain.glb" />
+        </Float>
+    )
+}
+
+function AnimatedStars() {
+    const { camera } = useThree()
+    const starsRef = useRef<THREE.Points>(null)
 
     useEffect(() => {
-        if (!headingRef.current || !subheadingRef.current) return
+        if (!starsRef.current) return
 
-        const heading = new SplitType(headingRef.current, { types: "chars" })
-        const subheading = new SplitType(subheadingRef.current, { types: "words" })
+        const geometry = new THREE.BufferGeometry()
+        const vertices = []
 
-        gsap.from(heading.chars, {
-            opacity: 0,
-            y: 100,
-            rotateX: -90,
-            stagger: 0.02,
-            duration: 1,
-            ease: "back.out(1.7)",
+        for (let i = 0; i < 5000; i++) {
+            const x = (Math.random() - 0.5) * 2000
+            const y = (Math.random() - 0.5) * 2000
+            const z = (Math.random() - 0.5) * 2000
+            vertices.push(x, y, z)
+        }
+
+        geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3))
+
+        const material = new THREE.PointsMaterial({
+            size: 2,
+            color: 0xffffff,
         })
 
-        gsap.from(subheading.words, {
-            opacity: 0,
-            y: 50,
-            stagger: 0.05,
-            duration: 0.5,
-            ease: "back.out(1.7)",
-            delay: 0.5,
+        starsRef.current.geometry = geometry
+        starsRef.current.material = material
+    }, [])
+
+    useFrame(() => {
+        if (!starsRef.current) return
+        starsRef.current.rotation.x += 0.0002
+        starsRef.current.rotation.y += 0.0002
+    })
+
+    return <points ref={starsRef} />
+}
+
+export function Hero() {
+    const containerRef = useRef<HTMLDivElement>(null)
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end start"],
+    })
+
+    const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
+    const opacity = useTransform(scrollYProgress, [0, 1], [1, 0])
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.from(".hero-title", {
+                y: 100,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out",
+                stagger: 0.2,
+            })
+            gsap.from(".hero-subtitle", {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                delay: 0.5,
+                ease: "power3.out",
+            })
+            gsap.from(".hero-button", {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                delay: 0.8,
+                ease: "power3.out",
+                stagger: 0.2,
+            })
         })
+
+        return () => ctx.revert()
     }, [])
 
     return (
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-            <div className="container mx-auto px-4 text-center z-10">
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
-                    className="mb-6"
-                >
-                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-                        NEXT GENERATION AI
-                    </span>
-                </motion.div>
-
-                <h1
-                    ref={headingRef}
-                    className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent"
-                >
-                    Welcome to the Future of AI
+        <section
+            ref={containerRef}
+            className="relative min-h-screen flex items-center justify-center overflow-hidden py-20"
+        >
+            <motion.div style={{ y, opacity }} className="container mx-auto px-4 text-center z-10">
+                <h1 className="hero-title text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
+                    The Future of AI
                 </h1>
-
-                <p ref={subheadingRef} className="max-w-2xl mx-auto text-xl text-gray-400 mb-12">
-                    Step into a world where artificial intelligence meets human creativity, powering the next generation of
-                    digital experiences.
+                <h1 className="hero-title text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
+                    Is Here
+                </h1>
+                <p className="hero-subtitle max-w-2xl mx-auto text-xl text-gray-300 mb-12">
+                    Experience the next generation of artificial intelligence, powering innovations that shape tomorrow's world.
                 </p>
-
                 <div className="flex flex-wrap justify-center gap-4">
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                        <Button className="relative px-8 py-6 bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-lg group overflow-hidden">
-                            <span className="relative z-10">Get Started</span>
-                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <motion.div className="hero-button" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                        <Button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-lg">
+                            Get Started
                         </Button>
                     </motion.div>
-
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                        <Button variant="outline" className="px-8 py-6 border-cyan-500/50 hover:bg-cyan-500/10 text-lg">
-                            Watch Demo
+                    <motion.div className="hero-button" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                        <Button variant="outline" className="px-8 py-4 border-blue-500 hover:bg-blue-500/10 text-lg">
+                            Learn More
                         </Button>
                     </motion.div>
                 </div>
+            </motion.div>
 
-                <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
-                </div>
+            <div className="absolute inset-0 w-full h-full">
+                <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+                    <ambientLight intensity={0.5} />
+                    <pointLight position={[10, 10, 10]} />
+                    <AnimatedStars />
+                    <FloatingModel />
+                    <Environment preset="city" />
+                </Canvas>
             </div>
         </section>
     )
