@@ -3,9 +3,9 @@
 import { Navigation } from "@/components/navigation"
 import { Hero } from "@/components/hero"
 import { Features } from "@/components/features"
-// import { Pricing } from "@/components/pricing"
 // import { Contact } from "@/components/contact"
 import { ParticlesBackground } from "@/components/particles-background"
+import { Pricing } from "@/components/pricing"
 
 export default function Page() {
   return (
@@ -14,8 +14,8 @@ export default function Page() {
       <Navigation />
       <Hero />
       <Features />
-      {/*
       <Pricing />
+      {/*
       <Contact /> */}
     </div>
   )
