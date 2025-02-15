@@ -1,8 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useRef } from "react"
-import { useInView } from "framer-motion"
+import { useInView } from "react-intersection-observer"
 
 const services = [
     {
@@ -31,39 +30,57 @@ const services = [
     },
 ]
 
-function Card({ title, description, image }: { title: string; description: string; image: string }) {
-    const ref = useRef(null)
-    const isInView = useInView(ref, { once: true })
+function Card({
+    title,
+    description,
+    image,
+    index,
+}: { title: string; description: string; image: string; index: number }) {
+    const [ref, inView] = useInView({
+        triggerOnce: true,
+        threshold: 0.1,
+    })
 
     return (
         <motion.div
             ref={ref}
             initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
             className="relative overflow-hidden rounded-xl group"
         >
-            <img
+            <motion.img
                 src={image || "/placeholder.svg"}
                 alt={title}
                 className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                whileHover={{ scale: 1.1 }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70" />
-            <div className="absolute bottom-0 left-0 p-6">
+            <motion.div
+                className="absolute bottom-0 left-0 p-6"
+                initial={{ y: 20, opacity: 0 }}
+                animate={inView ? { y: 0, opacity: 1 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
+            >
                 <h3 className="text-2xl font-bold mb-2 text-white">{title}</h3>
                 <p className="text-gray-300">{description}</p>
-            </div>
+            </motion.div>
         </motion.div>
     )
 }
 
 export function Services() {
+    const [ref, inView] = useInView({
+        triggerOnce: true,
+        threshold: 0.1,
+    })
+
     return (
-        <section className="py-24 bg-gradient-to-b from-purple-900/20 to-black">
+        <section ref={ref} className="py-24 bg-gradient-to-b from-purple-900/20 to-black">
             <div className="container mx-auto px-4">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
@@ -77,7 +94,7 @@ export function Services() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {services.map((service, index) => (
-                        <Card key={index} {...service} />
+                        <Card key={index} {...service} index={index} />
                     ))}
                 </div>
             </div>
