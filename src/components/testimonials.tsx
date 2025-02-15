@@ -1,66 +1,43 @@
 "use client"
 
-import { useEffect, useRef } from "react"
-import { motion, useInView } from "framer-motion"
+import { motion } from "framer-motion"
 import Image from "next/image"
 import { Quote } from "lucide-react"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 const testimonials = [
     {
         name: "Sarah Johnson",
         role: "CTO at TechCorp",
-        image: "/placeholder.svg?height=100&width=100",
+        image:
+            "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
         quote:
             "Agentia's AI solutions have transformed our business operations. The results have been nothing short of extraordinary.",
     },
     {
         name: "Michael Chen",
         role: "Lead Developer",
-        image: "/placeholder.svg?height=100&width=100",
+        image:
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D",
         quote: "The integration was seamless, and the AI capabilities exceeded our expectations. Highly recommended!",
     },
     {
         name: "Emily Rodriguez",
         role: "AI Research Lead",
-        image: "/placeholder.svg?height=100&width=100",
+        image:
+            "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D",
         quote: "As a researcher in AI, I'm impressed by the sophistication and reliability of Agentia's neural networks.",
     },
 ]
 
 export function Testimonials() {
-    const containerRef = useRef<HTMLDivElement>(null)
-    const isInView = useInView(containerRef, { once: true, margin: "-100px" })
-
-    useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger)
-
-        const cards = document.querySelectorAll(".testimonial-card")
-
-        cards.forEach((card, index) => {
-            gsap.from(card, {
-                scrollTrigger: {
-                    trigger: card,
-                    start: "top bottom-=100",
-                    toggleActions: "play none none reverse",
-                },
-                opacity: 0,
-                x: index % 2 === 0 ? -50 : 50,
-                duration: 0.8,
-                delay: index * 0.2,
-            })
-        })
-    }, [])
-
     return (
-        <section className="py-24 relative overflow-hidden" ref={containerRef}>
+        <section className="py-24 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-900/10 to-black" />
 
             <div className="container mx-auto px-4 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
@@ -76,8 +53,10 @@ export function Testimonials() {
                     {testimonials.map((testimonial, index) => (
                         <motion.div
                             key={index}
-                            className="testimonial-card relative p-8 rounded-xl bg-gradient-to-br from-cyan-500/5 to-purple-500/5 border border-white/10"
-                            whileHover={{ y: -5 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                            className="relative p-8 rounded-xl bg-gradient-to-br from-cyan-500/5 to-purple-500/5 border border-white/10"
                         >
                             <Quote className="w-12 h-12 text-cyan-400 mb-6 opacity-50" />
 
@@ -103,7 +82,6 @@ export function Testimonials() {
                 </div>
             </div>
 
-            {/* Decorative elements */}
             <div className="absolute -bottom-px left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
         </section>
     )
