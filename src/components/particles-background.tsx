@@ -6,9 +6,7 @@ import type { Container, Engine } from "tsparticles-engine"
 import { loadFull } from "tsparticles"
 
 export function ParticlesBackground() {
-    const particlesInit = useCallback(async (engine: Engine) => {
-        await loadFull(engine)
-    }, [])
+    // const particlesInit = useCallback(async (engine: Engine) => await loadFull(engine), [])
 
     const particlesLoaded = useCallback(async (container: Container | undefined) => {
         await console.log(container)
@@ -18,7 +16,7 @@ export function ParticlesBackground() {
         <Particles
             className="absolute inset-0"
             id="tsparticles"
-            init={particlesInit}
+            // init={particlesInit}
             loaded={particlesLoaded}
             options={{
                 background: {
