@@ -21,7 +21,8 @@
     "react-dom": "^18",
     "react-particles": "^2.12.2",
     "tailwind-merge": "^3.0.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "tsparticles": "^3.8.1"
   },
   "devDependencies": {
     "@types/node": "^20",
