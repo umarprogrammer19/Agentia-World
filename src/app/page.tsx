@@ -9,7 +9,7 @@ import { Features } from "@/components/features"
 import { Pricing } from "@/components/pricing"
 import { Contact } from "@/components/contact"
 // import { Footer } from "@/components/footer"
-// import { ThreeBackground } from "@/components/three-background"
+import { ThreeBackground } from "@/components/three-background"
 // import { LocomotiveScrollProvider } from "@/components/locomotive-scroll"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -22,7 +22,7 @@ export default function Page() {
   return (
     // <LocomotiveScrollProvider>
       <div className="relative min-h-screen bg-black text-white overflow-hidden">
-        {/* <ThreeBackground /> */}
+        <ThreeBackground />
         <Navigation />
         <main>
           <Hero />
