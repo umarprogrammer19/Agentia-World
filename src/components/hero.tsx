@@ -43,7 +43,6 @@ export function Hero() {
                         backgroundSize: "200% auto",
                         backgroundClip: "text",
                         WebkitBackgroundClip: "text",
-                        // textFillColor: "transparent",
                         WebkitTextFillColor: "transparent",
                     }}
                     initial={{ opacity: 0, y: 20 }}
