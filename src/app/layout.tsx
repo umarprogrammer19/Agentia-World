@@ -1,9 +1,10 @@
 import type React from "react"
 import "./globals.css"
-import { Inter } from "next/font/google"
+import { Space_Grotesk } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
+import { CustomCursor } from "@/components/custom-cursor"
 
-const inter = Inter({ subsets: ["latin"] })
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] })
 
 export default function RootLayout({
   children,
@@ -13,10 +14,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <title>Enterprise AI Agents | Next Generation</title>
+        <title>Agentia World - Next Generation AI</title>
       </head>
-      <body className={`${inter.className} dark`}>
+      <body className={`${spaceGrotesk.className} dark`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+          <CustomCursor />
           {children}
         </ThemeProvider>
       </body>
