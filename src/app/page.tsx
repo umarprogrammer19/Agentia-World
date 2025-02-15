@@ -1,40 +1,54 @@
-"use client"
+"use client";
 
-import { useEffect } from "react"
-import { Navigation } from "@/components/navigation"
-import { Hero } from "@/components/hero"
-import { Features } from "@/components/features"
-import { Services } from "@/components/services"
-import { Testimonials } from "@/components/testimonials"
-import { LocomotiveScrollProvider } from "@/components/locomotive-scroll"
-import { Pricing } from "@/components/pricing"
-import { Contact } from "@/components/contact"
-import { Footer } from "@/components/footer"
-import { ThreeBackground } from "@/components/three-background"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useEffect, useRef } from "react";
+import { Navigation } from "@/components/navigation";
+import { Hero } from "@/components/hero";
+import { Features } from "@/components/features";
+import { Services } from "@/components/services";
+import { Showcase } from "@/components/showcase";
+import { Testimonials } from "@/components/testimonials";
+import { Contact } from "@/components/contact";
+import { Footer } from "@/components/footer";
+import { ParallaxProvider } from "react-scroll-parallax";
+import Lenis from "@studio-freight/lenis";
 
 export default function Page() {
+  const scrollRef = useRef(null);
+
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger)
-  }, [])
+    const lenis = new Lenis({
+      duration: 1.2, 
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      syncTouch: true, 
+      touchMultiplier: 1.5, 
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   return (
-    <LocomotiveScrollProvider>
-      <div className="relative min-h-screen bg-black text-white overflow-hidden">
-        <ThreeBackground />
+    <ParallaxProvider>
+      <div ref={scrollRef} className="relative bg-black text-white overflow-hidden">
         <Navigation />
         <main>
           <Hero />
           <Features />
           <Services />
+          <Showcase />
           <Testimonials />
-          <Pricing />
           <Contact />
         </main>
         <Footer />
       </div>
-    // </LocomotiveScrollProvider>
-  )
+    </ParallaxProvider>
+  );
 }
-
