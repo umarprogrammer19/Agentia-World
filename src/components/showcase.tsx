@@ -1,6 +1,12 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useInView } from "framer-motion"
+import { useRef } from "react"
+import { Swiper, SwiperSlide } from "swiper/react"
+import { Navigation, Pagination, Autoplay } from "swiper/modules"
+import "swiper/css"
+import "swiper/css/navigation"
+import "swiper/css/pagination"
 
 const showcaseItems = [
     {
@@ -24,12 +30,15 @@ const showcaseItems = [
 ]
 
 export function Showcase() {
+    const containerRef = useRef<HTMLDivElement>(null)
+    const isInView = useInView(containerRef, { once: true, margin: "-100px" })
+
     return (
-        <section id="showcase" className="py-24 bg-black">
+        <section id="showcase" className="py-24 bg-black" ref={containerRef}>
             <div className="container mx-auto px-4">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
@@ -39,28 +48,38 @@ export function Showcase() {
                     <p className="text-gray-300 max-w-2xl mx-auto text-lg">See Agentia in action</p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <Swiper
+                    modules={[Navigation, Pagination, Autoplay]}
+                    spaceBetween={30}
+                    slidesPerView={1}
+                    navigation
+                    pagination={{ clickable: true }}
+                    autoplay={{ delay: 5000 }}
+                    loop={true}
+                    className="mySwiper"
+                >
                     {showcaseItems.map((item, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            className="relative rounded-xl overflow-hidden group"
-                        >
-                            <img
-                                src={item.image || "/placeholder.svg"}
-                                alt={item.title}
-                                className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70" />
-                            <div className="absolute bottom-0 left-0 p-6">
-                                <h3 className="text-2xl font-bold mb-2 text-white">{item.title}</h3>
-                                <p className="text-gray-300">{item.description}</p>
-                            </div>
-                        </motion.div>
+                        <SwiperSlide key={index}>
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                                transition={{ duration: 0.6, delay: index * 0.1 }}
+                                className="relative rounded-xl overflow-hidden group"
+                            >
+                                <img
+                                    src={item.image || "/placeholder.svg"}
+                                    alt={item.title}
+                                    className="w-full h-[500px] object-cover transition-transform duration-300 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70" />
+                                <div className="absolute bottom-0 left-0 p-6">
+                                    <h3 className="text-3xl font-bold mb-2 text-white">{item.title}</h3>
+                                    <p className="text-gray-300 text-lg">{item.description}</p>
+                                </div>
+                            </motion.div>
+                        </SwiperSlide>
                     ))}
-                </div>
+                </Swiper>
             </div>
         </section>
     )
