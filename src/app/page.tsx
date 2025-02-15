@@ -3,7 +3,7 @@
 import { Navigation } from "@/components/navigation"
 import { Hero } from "@/components/hero"
 import { Features } from "@/components/features"
-// import { Contact } from "@/components/contact"
+import { Contact } from "@/components/contact"
 import { ParticlesBackground } from "@/components/particles-background"
 import { Pricing } from "@/components/pricing"
 
@@ -15,8 +15,7 @@ export default function Page() {
       <Hero />
       <Features />
       <Pricing />
-      {/*
-      <Contact /> */}
+      <Contact />
     </div>
   )
 }
