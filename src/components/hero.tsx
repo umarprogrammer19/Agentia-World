@@ -7,6 +7,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { useGLTF, Float, Environment } from "@react-three/drei"
 import gsap from "gsap"
 import { Button } from "@/components/ui/button"
+import { TypeAnimation } from "react-type-animation"
 
 function Model({ url }: { url: string }) {
     const { scene } = useGLTF(url)
@@ -109,9 +110,21 @@ export function Hero() {
                 <h1 className="hero-title text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
                     Is Here
                 </h1>
-                <p className="hero-subtitle max-w-2xl mx-auto text-xl text-gray-300 mb-12">
-                    Experience the next generation of artificial intelligence, powering innovations that shape tomorrow's world.
-                </p>
+                <div className="hero-subtitle max-w-2xl mx-auto text-xl text-gray-300 mb-12 h-20">
+                    <TypeAnimation
+                        sequence={[
+                            "Experience the next generation of artificial intelligence",
+                            1000,
+                            "Powering innovations that shape tomorrow's world",
+                            1000,
+                            "Transforming industries with cutting-edge AI solutions",
+                            1000,
+                        ]}
+                        wrapper="p"
+                        speed={50}
+                        repeat={Number.POSITIVE_INFINITY}
+                    />
+                </div>
                 <div className="flex flex-wrap justify-center gap-4">
                     <motion.div className="hero-button" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                         <Button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-lg">
