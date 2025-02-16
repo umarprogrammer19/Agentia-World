@@ -1,8 +1,7 @@
+import { CustomCursor } from "@/components/custom-cursor"
+import { Space_Grotesk } from "next/font/google"
 import type React from "react"
 import "./globals.css"
-import { Space_Grotesk } from "next/font/google"
-import { ThemeProvider } from "@/components/theme-provider"
-import { CustomCursor } from "@/components/custom-cursor"
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] })
 
