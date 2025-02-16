@@ -71,7 +71,7 @@ function FeatureCard({ feature, index }: { feature: (typeof features)[0]; index:
 
 export function Features() {
     return (
-        <section className="py-24 relative overflow-hidden bg-black md:bg-transparent">
+        <section className="py-24 relative overflow-hidden bg-gradient-to-b from-black via-purple-900/20 to-black md:bg-transparent">
             <div className="absolute inset-0 bg-grid-pattern opacity-5">
                 <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-900/20 to-black" />
             </div>
@@ -113,7 +113,7 @@ export function Features() {
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" style={{ background: "black" }}>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {features.map((feature, index) => (
                         <FeatureCard key={index} feature={feature} index={index} />
                     ))}
