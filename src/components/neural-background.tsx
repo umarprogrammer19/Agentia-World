@@ -108,6 +108,6 @@ export function NeuralBackground() {
         }
     }, [])
 
-    return <div ref={containerRef} className="fixed inset-0 -z-10" />
+    return <div ref={containerRef} className="fixed bg-black inset-0 -z-10" />
 }
 

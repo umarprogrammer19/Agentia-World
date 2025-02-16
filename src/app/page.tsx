@@ -49,7 +49,7 @@ export default function Page() {
 
   return (
     <ParallaxProvider>
-      <div ref={containerRef} className="relative min-h-screen bg-black text-white overflow-hidden">
+      <div ref={containerRef} className="relative min-h-screen bg-black text-white">
         <motion.div style={{ y: backgroundY, opacity }} className="fixed inset-0 w-full h-full">
           <NeuralBackground />
         </motion.div>
