@@ -16,7 +16,7 @@ export function NeuralBackground() {
         containerRef.current.appendChild(renderer.domElement)
 
         const nodesGeometry = new THREE.BufferGeometry()
-        const nodeCount = 500
+        const nodeCount = 300
         const positions = new Float32Array(nodeCount * 3)
         const colors = new Float32Array(nodeCount * 3)
 
