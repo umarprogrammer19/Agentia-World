@@ -11,7 +11,7 @@ export function InterconnectedParticles() {
 
         const scene = new THREE.Scene()
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
+        const renderer = new THREE.WebGLRenderer({ alpha: false, antialias: true })
         renderer.setSize(window.innerWidth, window.innerHeight)
         containerRef.current.appendChild(renderer.domElement)
 
@@ -89,10 +89,12 @@ export function InterconnectedParticles() {
         animate()
 
         const handleResize = () => {
-            camera.aspect = window.innerWidth / window.innerHeight
-            camera.updateProjectionMatrix()
-            renderer.setSize(window.innerWidth, window.innerHeight)
-        }
+            if (!containerRef.current) return;
+            const { clientWidth, clientHeight } = containerRef.current;
+            camera.aspect = clientWidth / clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(clientWidth, clientHeight);
+        };
 
         window.addEventListener("resize", handleResize)
 
