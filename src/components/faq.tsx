@@ -43,15 +43,17 @@ function FAQItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
             transition={{ delay: index * 0.1 }}
             className="mb-4"
         >
-            <button
+            <motion.button
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex justify-between items-center w-full text-left p-4 rounded-lg bg-gradient-to-r from-cyan-900/30 to-purple-900/30 hover:from-cyan-900/50 hover:to-purple-900/50 transition-all duration-300"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
             >
                 <span className="text-lg font-semibold text-cyan-300">{faq.question}</span>
                 <ChevronDown
                     className={cn("w-5 h-5 text-cyan-300 transition-transform duration-300", isOpen && "transform rotate-180")}
                 />
-            </button>
+            </motion.button>
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
