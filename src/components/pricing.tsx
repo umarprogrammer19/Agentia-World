@@ -43,8 +43,13 @@ const plans = [
 
 export function Pricing() {
     return (
-        <section id="pricing" className="py-24 bg-black">
-            <div className="container mx-auto px-4">
+        <section id="pricing" className="py-24 relative overflow-hidden">
+            <div className="absolute inset-0">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_500px_at_50%_50%,#3B0764,transparent)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]" />
+            </div>
+
+            <div className="container mx-auto px-4 relative">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
