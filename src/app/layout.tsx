@@ -15,7 +15,7 @@ export default function RootLayout({
       <head>
         <title>Agentia World - Next Generation AI</title>
       </head>
-      <body className={`${spaceGrotesk.className} dark`}>
+      <body className={`${spaceGrotesk.className} dark bg-black`}>
         <CustomCursor />
         {children}
       </body>
