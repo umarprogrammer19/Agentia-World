@@ -9,14 +9,12 @@ export function NeuralBackground() {
     useEffect(() => {
         if (!containerRef.current) return
 
-        // Scene setup
         const scene = new THREE.Scene()
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
         renderer.setSize(window.innerWidth, window.innerHeight)
         containerRef.current.appendChild(renderer.domElement)
 
-        // Neural network nodes
         const nodesGeometry = new THREE.BufferGeometry()
         const nodeCount = 500
         const positions = new Float32Array(nodeCount * 3)
@@ -35,7 +33,6 @@ export function NeuralBackground() {
         nodesGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3))
         nodesGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3))
 
-        // Neural connections
         const connectionsMaterial = new THREE.LineBasicMaterial({
             vertexColors: true,
             blending: THREE.AdditiveBlending,
@@ -73,7 +70,6 @@ export function NeuralBackground() {
 
         scene.add(connections)
 
-        // Nodes material
         const nodesMaterial = new THREE.PointsMaterial({
             size: 0.05,
             vertexColors: true,
@@ -85,7 +81,6 @@ export function NeuralBackground() {
 
         camera.position.z = 5
 
-        // Animation
         function animate() {
             requestAnimationFrame(animate)
 
@@ -99,7 +94,6 @@ export function NeuralBackground() {
 
         animate()
 
-        // Handle resize
         function handleResize() {
             camera.aspect = window.innerWidth / window.innerHeight
             camera.updateProjectionMatrix()
