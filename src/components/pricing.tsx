@@ -43,7 +43,7 @@ const plans = [
 
 export function Pricing() {
     return (
-        <section id="pricing" className="py-24 relative overflow-hidden">
+        <section id="pricing" className="py-24 relative overflow-hidden bg-gradient-to-r from-black via-purple-900/20 to-black md:bg-transparent">
             <div className="absolute inset-0">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_500px_at_50%_50%,#3B0764,transparent)]" />
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]" />
@@ -94,8 +94,8 @@ export function Pricing() {
                             </ul>
                             <Button
                                 className={`w-full ${plan.popular
-                                        ? "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
-                                        : "bg-white/10 hover:bg-white/20"
+                                    ? "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                                    : "bg-white/10 hover:bg-white/20"
                                     }`}
                             >
                                 Get Started
