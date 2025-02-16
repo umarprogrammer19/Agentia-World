@@ -1,29 +1,38 @@
 "use client"
 
-import { useEffect, useRef } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
-import * as THREE from "three"
-import { Canvas, useFrame, useThree } from "@react-three/fiber"
-import { useGLTF, Float, Environment } from "@react-three/drei"
-import gsap from "gsap"
 import { Button } from "@/components/ui/button"
+import { Environment, Float, useGLTF } from "@react-three/drei"
+import { Canvas, useFrame } from "@react-three/fiber"
+import { motion, useScroll, useTransform } from "framer-motion"
+import gsap from "gsap"
+import { useEffect, useRef } from "react"
 import { TypeAnimation } from "react-type-animation"
+import * as THREE from "three"
 
 function Model({ url }: { url: string }) {
     const { scene } = useGLTF(url)
-    return <primitive object={scene} />
+    return <primitive object={scene} scale={[1.3, 1.3, 1.3]} />
 }
 
 function FloatingModel() {
+    const modelRef = useRef<THREE.Group>(null);
+
+    useFrame(() => {
+        if (modelRef.current) {
+            modelRef.current.rotation.y += 0.02; 
+        }
+    });
+
     return (
-        <Float speed={1.4} rotationIntensity={1} floatIntensity={2}>
-            <Model url="/brain.glb" />
+        <Float speed={2} rotationIntensity={2} floatIntensity={3}>
+            <group ref={modelRef}>
+                <Model url="/brain.glb" />
+            </group>
         </Float>
-    )
+    );
 }
 
 function AnimatedStars() {
-    const { camera } = useThree()
     const starsRef = useRef<THREE.Points>(null)
 
     useEffect(() => {
