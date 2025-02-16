@@ -25,29 +25,24 @@ function FeatureCard({ feature, index }: { feature: (typeof features)[0]; index:
 
     const y = useTransform(scrollYProgress, [0, 1], [100, -100])
     const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0])
+    const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8])
 
     return (
-        <motion.div ref={ref} style={{ y, opacity }} className="group relative">
-            {/* Animated border */}
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <motion.div
+            ref={ref}
+            style={{ y, opacity, scale }}
+            className="group relative"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        >
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur" />
 
             <div className="relative p-6 bg-black rounded-xl">
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-purple-600/5 rounded-xl" />
 
-                {/* Connecting lines */}
-                <svg className="absolute -left-4 top-1/2 w-8 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <line x1="0" y1="0" x2="100%" y2="0" stroke="url(#line-gradient)" strokeWidth="1" />
-                    <defs>
-                        <linearGradient id="line-gradient" x1="0" y1="0" x2="100%" y2="0">
-                            <stop offset="0%" stopColor="#00ffff" />
-                            <stop offset="100%" stopColor="#bf00ff" />
-                        </linearGradient>
-                    </defs>
-                </svg>
-
                 <motion.div
                     initial={{ scale: 1 }}
-                    whileHover={{ scale: 1.1 }}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     className="mb-4"
                 >
@@ -59,13 +54,14 @@ function FeatureCard({ feature, index }: { feature: (typeof features)[0]; index:
                 </h3>
                 <p className="text-gray-400 group-hover:text-gray-300 transition-colors">{feature.description}</p>
 
-                {/* Animated corner */}
-                <div className="absolute bottom-0 right-0 w-8 h-8">
-                    <svg
-                        viewBox="0 0 32 32"
-                        className="w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    >
-                        <path d="M32 32L0 32L0 0" fill="none" stroke="url(#corner-gradient)" strokeWidth="1" />
+                <motion.div
+                    className="absolute bottom-0 right-0 w-12 h-12"
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileHover={{ opacity: 1, scale: 1, rotate: 90 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                    <svg viewBox="0 0 32 32" className="w-full h-full">
+                        <path d="M32 32L0 32L0 0" fill="none" stroke="url(#corner-gradient)" strokeWidth="2" />
                         <defs>
                             <linearGradient id="corner-gradient" x1="0" y1="0" x2="100%" y2="100%">
                                 <stop offset="0%" stopColor="#00ffff" />
@@ -73,7 +69,7 @@ function FeatureCard({ feature, index }: { feature: (typeof features)[0]; index:
                             </linearGradient>
                         </defs>
                     </svg>
-                </div>
+                </motion.div>
             </div>
         </motion.div>
     )
@@ -82,12 +78,10 @@ function FeatureCard({ feature, index }: { feature: (typeof features)[0]; index:
 export function Features() {
     return (
         <section className="py-24 relative overflow-hidden">
-            {/* Animated background */}
             <div className="absolute inset-0 bg-grid-pattern opacity-5">
                 <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-900/20 to-black" />
             </div>
 
-            {/* Floating elements */}
             {[...Array(20)].map((_, i) => (
                 <motion.div
                     key={i}
@@ -95,6 +89,7 @@ export function Features() {
                     animate={{
                         x: ["0%", "100%", "0%"],
                         y: ["0%", "100%", "0%"],
+                        scale: [1, 1.5, 1],
                     }}
                     transition={{
                         duration: Math.random() * 10 + 10,
