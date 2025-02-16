@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion } from "framer-motion"
 import { useRef } from "react"
 import { Canvas } from "@react-three/fiber"
 import { Float, MeshWobbleMaterial } from "@react-three/drei"
@@ -56,22 +56,16 @@ function AnimatedShape({ color, shape }: { color: string; shape: string }) {
 
 function ShowcaseCard({ item, index }: { item: (typeof showcaseItems)[0]; index: number }) {
     const ref = useRef<HTMLDivElement>(null)
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start end", "end start"],
-    })
-
-    const y = useTransform(scrollYProgress, [0, 1], [100, -100])
-    const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0])
-    const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8])
 
     return (
         <motion.div
             ref={ref}
-            style={{ y, opacity, scale }}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
             className="relative group"
             whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
             <div className="absolute inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl opacity-20 group-hover:opacity-100 transition-all duration-500 blur" />
 
