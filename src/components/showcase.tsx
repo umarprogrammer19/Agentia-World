@@ -1,100 +1,150 @@
 "use client"
 
-import { motion, useAnimation } from "framer-motion"
-import { useInView } from "react-intersection-observer"
-import { useEffect } from "react"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react"
+import { Canvas } from "@react-three/fiber"
+import { Float } from "@react-three/drei"
 
 const showcaseItems = [
     {
-        title: "AI-Powered Customer Service",
-        description: "Revolutionizing customer support with intelligent chatbots",
-        image: "https://images.unsplash.com/photo-1596524430615-b46475ddff6e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y3VzdG9tZXIlMjBzZXJ2aWNe% 7Cen % 7C0 % 7C0 % 7C % 7C0",
+        title: "Neural Network Visualization",
+        description: "Real-time visualization of our AI models in action",
+        stats: {
+            accuracy: 99.9,
+            speed: 0.001,
+            nodes: 1000000,
+        },
     },
     {
-        title: "Predictive Maintenance",
-        description: "Optimizing industrial operations with AI-driven predictions",
-        image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJlZGljdGl2ZSUyMG1haW50ZW5hbmNlfGVufDB8fDB8fHww",
+        title: "Quantum Processing",
+        description: "Quantum-inspired algorithms for complex problem solving",
+        stats: {
+            qubits: 1024,
+            coherence: 100,
+            fidelity: 99.99,
+        },
     },
     {
-        title: "AI in Healthcare",
-        description: "Enhancing medical diagnoses with advanced AI algorithms",
-        image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YWklMjBpbiUyMGhlYWx0aGNhcmV8ZW58MHx8MHx8fDA%3D",
+        title: "Edge Computing Network",
+        description: "Global network of edge computing nodes",
+        stats: {
+            nodes: 500,
+            latency: 1,
+            uptime: 99.999,
+        },
     },
 ]
 
-export function Showcase() {
-    const controls = useAnimation()
-    const [ref, inView] = useInView({
-        triggerOnce: true,
-        threshold: 0.1,
+function AnimatedGraph() {
+    return (
+        <Canvas camera={{ position: [0, 0, 5] }}>
+            <ambientLight intensity={0.5} />
+            <pointLight position={[10, 10, 10]} />
+            <Float speed={1} rotationIntensity={2} floatIntensity={2}>
+                <mesh>
+                    <torusKnotGeometry args={[1, 0.3, 100, 16]} />
+                    <meshStandardMaterial color="#00ffff" emissive="#00ffff" emissiveIntensity={0.5} wireframe />
+                </mesh>
+            </Float>
+        </Canvas>
+    )
+}
+
+function ShowcaseCard({ item, index }: { item: (typeof showcaseItems)[0]; index: number }) {
+    const ref = useRef<HTMLDivElement>(null)
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ["start end", "end start"],
     })
 
-    useEffect(() => {
-        if (inView) {
-            controls.start("visible")
-        }
-    }, [controls, inView])
-
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.3,
-            },
-        },
-    }
-
-    const itemVariants = {
-        hidden: { y: 20, opacity: 0 },
-        visible: {
-            y: 0,
-            opacity: 1,
-            transition: {
-                type: "spring",
-                damping: 12,
-                stiffness: 100,
-            },
-        },
-    }
+    const y = useTransform(scrollYProgress, [0, 1], [100, -100])
+    const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0])
 
     return (
-        <section id="showcase" className="py-24 bg-black" ref={ref}>
-            <div className="container mx-auto px-4">
+        <motion.div ref={ref} style={{ y, opacity }} className="relative group">
+            <div className="absolute inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl opacity-20 group-hover:opacity-100 transition-all duration-500 blur" />
+
+            <div className="relative p-8 bg-black rounded-xl border border-white/10">
+                <div className="h-60 mb-6">
+                    <AnimatedGraph />
+                </div>
+
+                <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
+                    {item.title}
+                </h3>
+
+                <p className="text-gray-400 mb-6">{item.description}</p>
+
+                <div className="grid grid-cols-3 gap-4">
+                    {Object.entries(item.stats).map(([key, value], i) => (
+                        <motion.div
+                            key={key}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: i * 0.1 }}
+                            className="text-center"
+                        >
+                            <div className="text-2xl font-bold text-cyan-400">
+                                {typeof value === "number" ? value.toLocaleString() : value}
+                            </div>
+                            <div className="text-sm text-gray-500 capitalize">{key}</div>
+                        </motion.div>
+                    ))}
+                </div>
+
+                {/* Animated corner decorations */}
+                <div className="absolute top-0 left-0 w-8 h-8">
+                    <motion.svg
+                        viewBox="0 0 32 32"
+                        className="w-full h-full"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                    >
+                        <motion.path
+                            d="M0 32L32 32L32 0"
+                            fill="none"
+                            stroke="url(#corner-gradient)"
+                            strokeWidth="1"
+                            initial={{ pathLength: 0 }}
+                            animate={{ pathLength: 1 }}
+                            transition={{ duration: 1.5, ease: "easeInOut" }}
+                        />
+                    </motion.svg>
+                </div>
+            </div>
+        </motion.div>
+    )
+}
+
+export function Showcase() {
+    return (
+        <section className="py-24 relative overflow-hidden">
+            {/* Animated background */}
+            <div className="absolute inset-0">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_500px_at_50%_50%,#3B0764,transparent)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]" />
+            </div>
+
+            <div className="container mx-auto px-4 relative">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true }}
                     className="text-center mb-16"
                 >
                     <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500">
-                        Showcase
+                        Technology Showcase
                     </h2>
-                    <p className="text-gray-300 max-w-2xl mx-auto text-lg">See Agentia in action</p>
+                    <p className="text-gray-400 max-w-2xl mx-auto text-lg">Experience our cutting-edge AI technology in action</p>
                 </motion.div>
 
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate={controls}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-                >
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {showcaseItems.map((item, index) => (
-                        <motion.div key={index} variants={itemVariants} className="relative rounded-xl overflow-hidden group">
-                            <motion.img
-                                src={item.image || "/placeholder.svg"}
-                                alt={item.title}
-                                className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                                whileHover={{ scale: 1.1 }}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70" />
-                            <div className="absolute bottom-0 left-0 p-6">
-                                <h3 className="text-2xl font-bold mb-2 text-white">{item.title}</h3>
-                                <p className="text-gray-300">{item.description}</p>
-                            </div>
-                        </motion.div>
+                        <ShowcaseCard key={index} item={item} index={index} />
                     ))}
-                </motion.div>
+                </div>
             </div>
         </section>
     )

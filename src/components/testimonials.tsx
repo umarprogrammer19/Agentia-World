@@ -74,7 +74,7 @@ export function Testimonials() {
                                     alt={testimonial.name}
                                     width={50}
                                     height={50}
-                                    className="rounded-full"
+                                    className="rounded-full w-16 h-16"
                                 />
                                 <div>
                                     <h4 className="font-bold text-white">{testimonial.name}</h4>

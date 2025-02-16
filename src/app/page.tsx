@@ -8,6 +8,7 @@ import { GlitchEffect } from "@/components/glitch-effect"
 import { Hero } from "@/components/hero"
 import { Navigation } from "@/components/navigation"
 import { NeuralBackground } from "@/components/neural-background"
+import { Pricing } from "@/components/pricing"
 import { Services } from "@/components/services"
 import { Showcase } from "@/components/showcase"
 import { Testimonials } from "@/components/testimonials"
@@ -24,7 +25,7 @@ export default function Page() {
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.5, 0])
 
   useEffect(() => {
-    
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -62,6 +63,7 @@ export default function Page() {
             <Features />
             <Services />
             <Showcase />
+            <Pricing />
             <Testimonials />
             <Contact />
           </main>
