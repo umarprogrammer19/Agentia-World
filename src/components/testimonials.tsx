@@ -96,7 +96,7 @@ function TestimonialCard({ testimonial }: { testimonial: (typeof testimonials)[0
 
 export function Testimonials() {
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-24 relative overflow-hidden bg-gradient-to-r from-black via-purple-900/20 to-black md:bg-transparent">
       {/* Geometric pattern background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_500px_at_50%_50%,#3B0764,transparent)]" />
