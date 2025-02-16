@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
 import { Canvas } from "@react-three/fiber"
-import { Float } from "@react-three/drei"
+import { Float, MeshWobbleMaterial } from "@react-three/drei"
 
 const showcaseItems = [
     {
@@ -14,6 +14,8 @@ const showcaseItems = [
             speed: 0.001,
             nodes: 1000000,
         },
+        color: "#00ffff",
+        shape: "Torus",
     },
     {
         title: "Quantum Processing",
@@ -23,6 +25,8 @@ const showcaseItems = [
             coherence: 100,
             fidelity: 99.99,
         },
+        color: "#ff00ff",
+        shape: "Icosahedron",
     },
     {
         title: "Edge Computing Network",
@@ -32,21 +36,21 @@ const showcaseItems = [
             latency: 1,
             uptime: 99.999,
         },
+        color: "#00ff00",
+        shape: "Octahedron",
     },
 ]
 
-function AnimatedGraph() {
+function AnimatedShape({ color, shape }: { color: string; shape: string }) {
     return (
-        <Canvas camera={{ position: [0, 0, 5] }}>
-            <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} />
-            <Float speed={1} rotationIntensity={2} floatIntensity={2}>
-                <mesh>
-                    <torusKnotGeometry args={[1, 0.3, 100, 16]} />
-                    <meshStandardMaterial color="#00ffff" emissive="#00ffff" emissiveIntensity={0.5} wireframe />
-                </mesh>
-            </Float>
-        </Canvas>
+        <Float speed={1} rotationIntensity={2} floatIntensity={2}>
+            <mesh>
+                {shape === "Torus" && <torusGeometry args={[1, 0.4, 16, 100]} />}
+                {shape === "Icosahedron" && <icosahedronGeometry args={[1, 0]} />}
+                {shape === "Octahedron" && <octahedronGeometry args={[1, 0]} />}
+                <MeshWobbleMaterial color={color} emissive={color} emissiveIntensity={0.5} factor={0.6} speed={1} />
+            </mesh>
+        </Float>
     )
 }
 
@@ -59,14 +63,25 @@ function ShowcaseCard({ item, index }: { item: (typeof showcaseItems)[0]; index:
 
     const y = useTransform(scrollYProgress, [0, 1], [100, -100])
     const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0])
+    const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8])
 
     return (
-        <motion.div ref={ref} style={{ y, opacity }} className="relative group">
+        <motion.div
+            ref={ref}
+            style={{ y, opacity, scale }}
+            className="relative group"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        >
             <div className="absolute inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl opacity-20 group-hover:opacity-100 transition-all duration-500 blur" />
 
             <div className="relative p-8 bg-black rounded-xl border border-white/10">
                 <div className="h-60 mb-6">
-                    <AnimatedGraph />
+                    <Canvas camera={{ position: [0, 0, 5] }}>
+                        <ambientLight intensity={0.5} />
+                        <pointLight position={[10, 10, 10]} />
+                        <AnimatedShape color={item.color} shape={item.shape} />
+                    </Canvas>
                 </div>
 
                 <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
@@ -92,26 +107,24 @@ function ShowcaseCard({ item, index }: { item: (typeof showcaseItems)[0]; index:
                     ))}
                 </div>
 
-                {/* Animated corner decorations */}
-                <div className="absolute top-0 left-0 w-8 h-8">
-                    <motion.svg
-                        viewBox="0 0 32 32"
-                        className="w-full h-full"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                    >
+                <motion.div
+                    className="absolute top-0 left-0 w-8 h-8"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1, rotate: 90 }}
+                    transition={{ duration: 0.3 }}
+                >
+                    <svg viewBox="0 0 32 32" className="w-full h-full">
                         <motion.path
                             d="M0 32L32 32L32 0"
                             fill="none"
-                            stroke="url(#corner-gradient)"
-                            strokeWidth="1"
+                            stroke={item.color}
+                            strokeWidth="2"
                             initial={{ pathLength: 0 }}
                             animate={{ pathLength: 1 }}
                             transition={{ duration: 1.5, ease: "easeInOut" }}
                         />
-                    </motion.svg>
-                </div>
+                    </svg>
+                </motion.div>
             </div>
         </motion.div>
     )
@@ -120,7 +133,6 @@ function ShowcaseCard({ item, index }: { item: (typeof showcaseItems)[0]; index:
 export function Showcase() {
     return (
         <section className="py-24 relative overflow-hidden">
-            {/* Animated background */}
             <div className="absolute inset-0">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_500px_at_50%_50%,#3B0764,transparent)]" />
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]" />
