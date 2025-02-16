@@ -79,10 +79,10 @@ export function Hero() {
     return (
         <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden py-20">
             <motion.div style={{ y, opacity }} className="text-center z-10">
-                <h1 className="hero-title text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
+                <h1 className="hero-title text-4xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
                     The Future of AI
                 </h1>
-                <h1 className="hero-title text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
+                <h1 className="hero-title text-4xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
                     Is Here
                 </h1>
                 <div className="hero-subtitle max-w-2xl mx-auto text-xl text-gray-300 mb-12 h-20">
