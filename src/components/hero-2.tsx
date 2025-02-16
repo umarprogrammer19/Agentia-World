@@ -29,7 +29,7 @@ function BrainModel() {
     )
 }
 
-export function Hero() {
+export function Hero2() {
     const containerRef = useRef<HTMLDivElement>(null)
     const { scrollYProgress } = useScroll({
         target: containerRef,
