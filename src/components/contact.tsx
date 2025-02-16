@@ -61,7 +61,7 @@ export function Contact() {
                         Get in Touch
                     </h2>
                     <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-                        Have questions? We're here to help you get started with your AI journey
+                        Have questions? We&apos;re here to help you get started with your AI journey
                     </p>
                 </motion.div>
 

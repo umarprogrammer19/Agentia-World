@@ -32,7 +32,7 @@ const testimonials = [
   },
 ]
 
-function TestimonialCard({ testimonial, index }: { testimonial: (typeof testimonials)[0]; index: number }) {
+function TestimonialCard({ testimonial }: { testimonial: (typeof testimonials)[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -50,7 +50,7 @@ function TestimonialCard({ testimonial, index }: { testimonial: (typeof testimon
       <div className="relative p-8 bg-black rounded-xl border border-white/10">
         <Quote className="w-12 h-12 text-cyan-400 mb-6 opacity-50" />
 
-        <p className="text-gray-300 mb-6 text-lg italic">"{testimonial.quote}"</p>
+        <p className="text-gray-300 mb-6 text-lg italic">&quot;{testimonial.quote}&quot;</p>
 
         <div className="flex items-center gap-4">
           <Image
@@ -115,7 +115,7 @@ export function Testimonials() {
             What Our Clients Say
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            Hear from industry leaders who have experienced the power of Agentia World's AI solutions
+            Hear from industry leaders who have experienced the power of Agentia World&apos;s AI solutions
           </p>
         </motion.div>
 

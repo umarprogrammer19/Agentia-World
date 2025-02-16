@@ -116,7 +116,7 @@ export function FAQ() {
                         Frequently Asked Questions
                     </h2>
                     <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-                        Explore our most common inquiries about Agentia World's revolutionary AI technology
+                        Explore our most common inquiries about Agentia World&apos;s revolutionary AI technology
                     </p>
                 </motion.div>
 
