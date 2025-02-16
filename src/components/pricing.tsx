@@ -54,6 +54,7 @@ export function Pricing() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
                     className="text-center mb-16"
                 >
                     <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">
@@ -66,10 +67,10 @@ export function Pricing() {
                     {plans.map((plan, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.2 }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
                             className={`relative p-8 rounded-xl bg-gradient-to-br from-purple-500/10 to-blue-500/10 border ${plan.popular ? "border-purple-500" : "border-white/10"
                                 }`}
                         >
