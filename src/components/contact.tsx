@@ -52,8 +52,9 @@ export function Contact() {
             <div className="container mx-auto px-4 relative">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
+                    viewport={{ once: true }}
                     className="text-center mb-16"
                 >
                     <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
@@ -67,8 +68,9 @@ export function Contact() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
                         className="space-y-8"
                     >
                         <div className="flex items-start gap-4">
@@ -104,8 +106,9 @@ export function Contact() {
 
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
                         className="relative"
                     >
                         <div className="absolute inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl opacity-20 blur" />
