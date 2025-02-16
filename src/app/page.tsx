@@ -1,23 +1,23 @@
 "use client"
 
-import { useEffect, useRef } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
-import Lenis from "@studio-freight/lenis"
-import { ParallaxProvider } from "react-scroll-parallax"
-import { Navigation } from "@/components/navigation"
-import { Hero } from "@/components/hero"
-import { Features } from "@/components/features"
-import { Services } from "@/components/services"
-import { Showcase } from "@/components/showcase"
-import { Pricing } from "@/components/pricing"
-import { FAQ } from "@/components/faq"
-import { Testimonials } from "@/components/testimonials"
 import { Contact } from "@/components/contact"
+import { FAQ } from "@/components/faq"
+import { Features } from "@/components/features"
 import { Footer } from "@/components/footer"
-import { NeuralBackground } from "@/components/neural-background"
+import { GlitchEffect } from "@/components/glitch-effect"
+import { Hero } from "@/components/hero"
 import { InterconnectedParticles } from "@/components/interconnected-particles"
 import { LineAnimations } from "@/components/line-animation"
-import { GlitchEffect } from "@/components/glitch-effect"
+import { Navigation } from "@/components/navigation"
+import { NeuralBackground } from "@/components/neural-background"
+import { Pricing } from "@/components/pricing"
+import { Services } from "@/components/services"
+import { Showcase } from "@/components/showcase"
+import { Testimonials } from "@/components/testimonials"
+import Lenis from "@studio-freight/lenis"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useEffect, useRef } from "react"
+import { ParallaxProvider } from "react-scroll-parallax"
 
 export default function Page() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -49,32 +49,32 @@ export default function Page() {
   }, [])
 
   return (
-    <ParallaxProvider>
-      <div ref={containerRef} className="relative min-h-screen bg-black text-white overflow-hidden">
-        <motion.div style={{ y: backgroundY, opacity }} className="fixed inset-0 w-full h-full">
-          <NeuralBackground />
-        </motion.div>
+      <ParallaxProvider>
+        <div ref={containerRef} className="relative min-h-screen bg-black text-white overflow-hidden">
+          <motion.div style={{ y: backgroundY, opacity }} className="fixed inset-0 w-full h-full">
+            <NeuralBackground />
+          </motion.div>
 
-        <InterconnectedParticles />
-        <LineAnimations />
-        <GlitchEffect />
+          <InterconnectedParticles />
+          <LineAnimations />
+          <GlitchEffect />
 
-        <div className="relative z-10">
-          <Navigation />
-          <main>
-            <Hero />
-            <Features />
-            <Services />
-            <Showcase />
-            <Pricing />
-            <FAQ />
-            <Testimonials />
-            <Contact />
-          </main>
-          <Footer />
+          <div className="relative z-10">
+            <Navigation />
+            <main>
+              <Hero />
+              <Features />
+              <Services />
+              <Showcase />
+              <Pricing />
+              <FAQ />
+              <Testimonials />
+              <Contact />
+            </main>
+            <Footer />
+          </div>
         </div>
-      </div>
-    </ParallaxProvider>
+      </ParallaxProvider>
   )
 }
 
