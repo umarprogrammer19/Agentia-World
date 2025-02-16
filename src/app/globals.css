@@ -55,11 +55,13 @@ body {
     @apply border-border;
   }
 
+  html,
   body {
     @apply bg-background text-foreground;
   }
 }
 
+html,
 body {
   background-color: black !important;
 }
