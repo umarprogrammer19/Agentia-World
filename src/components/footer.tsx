@@ -35,27 +35,39 @@ export function Footer() {
             </div>
 
             <div className="container mx-auto px-4 relative z-10">
-                <div className="max-w-4xl mx-auto text-center mb-12">
-                    <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent mb-4">
+                <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="max-w-4xl mx-auto text-center mb-12"
+                >
+                    <h3 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent mb-6">
                         Agentia World
                     </h3>
-                    <p className="text-gray-400 mb-8">Empowering the future through artificial intelligence and innovation.</p>
+                    <p className="text-gray-400 mb-8 text-lg">
+                        Empowering the future through artificial intelligence and innovation.
+                    </p>
                     <div className="flex justify-center space-x-6 mb-8">
                         {socialLinks.map(({ icon: Icon, href }, index) => (
                             <motion.a
                                 key={index}
                                 href={href}
-                                whileHover={{ y: -3 }}
+                                whileHover={{ y: -5, color: "#00ffff" }}
                                 className="text-gray-400 hover:text-cyan-400 transition-colors"
                             >
-                                <Icon size={24} />
+                                <Icon size={28} />
                             </motion.a>
                         ))}
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {["Company", "Resources", "Legal", "Support"].map((category) => (
-                            <div key={category}>
-                                <h4 className="text-lg font-semibold mb-2 text-cyan-400">{category}</h4>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        {["Company", "Resources", "Legal", "Support"].map((category, index) => (
+                            <motion.div
+                                key={category}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                            >
+                                <h4 className="text-lg font-semibold mb-4 text-cyan-400">{category}</h4>
                                 <ul className="space-y-2">
                                     {["About", "Careers", "Contact", "Blog"].map((item) => (
                                         <motion.li
@@ -67,12 +79,17 @@ export function Footer() {
                                         </motion.li>
                                     ))}
                                 </ul>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
-                </div>
+                </motion.div>
 
-                <div className="border-t border-white/10 pt-8">
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5, duration: 0.8 }}
+                    className="border-t border-white/10 pt-8"
+                >
                     <div className="flex flex-col md:flex-row justify-between items-center">
                         <p className="text-gray-400 text-sm mb-4 md:mb-0">
                             © {new Date().getFullYear()} Agentia World. All rights reserved.
@@ -81,7 +98,7 @@ export function Footer() {
                             {techStack.map((tech, index) => (
                                 <motion.div
                                     key={index}
-                                    whileHover={{ scale: 1.05 }}
+                                    whileHover={{ scale: 1.05, backgroundColor: "rgba(0, 255, 255, 0.1)" }}
                                     className="px-3 py-1 bg-gradient-to-r from-cyan-500/10 to-purple-600/10 rounded-full text-sm text-cyan-300 border border-cyan-500/30"
                                 >
                                     {tech}
@@ -90,7 +107,12 @@ export function Footer() {
                         </div>
                     </div>
 
-                    <div className="mt-12">
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.8, duration: 0.8 }}
+                        className="mt-12"
+                    >
                         <h4 className="text-lg font-semibold mb-4 text-cyan-400 text-center">AI Performance Metrics</h4>
                         <div className="h-64">
                             <ResponsiveContainer width="100%" height="100%">
@@ -108,8 +130,8 @@ export function Footer() {
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
             </div>
 
             <div className="absolute -bottom-px left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
