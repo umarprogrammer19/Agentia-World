@@ -31,7 +31,7 @@ const showcaseItems = [
 
 function AnimatedShape({ color, shape }: { color: string; shape: string }) {
     return (
-        <Float speed={0.8} rotationIntensity={1.2} floatIntensity={1.2}> 
+        <Float speed={0.8} rotationIntensity={1.2} floatIntensity={1.2}>
             <mesh>
                 {shape === "Torus" && <torusGeometry args={[1, 0.4, 16, 100]} />}
                 {shape === "Icosahedron" && <icosahedronGeometry args={[1, 0]} />}
@@ -39,8 +39,8 @@ function AnimatedShape({ color, shape }: { color: string; shape: string }) {
                 <MeshWobbleMaterial
                     color={color}
                     emissive={color}
-                    emissiveIntensity={0.3} 
-                    factor={0.5} 
+                    emissiveIntensity={0.3}
+                    factor={0.5}
                     speed={0.8}
                 />
             </mesh>
@@ -50,7 +50,7 @@ function AnimatedShape({ color, shape }: { color: string; shape: string }) {
 
 function ShowcaseCard({ item, index }: { item: (typeof showcaseItems)[0]; index: number }) {
     const ref = useRef<HTMLDivElement>(null);
-    const memoizedStats = useMemo(() => Object.entries(item.stats), [item.stats]); 
+    const memoizedStats = useMemo(() => Object.entries(item.stats), [item.stats]);
 
     return (
         <motion.div
@@ -60,13 +60,13 @@ function ShowcaseCard({ item, index }: { item: (typeof showcaseItems)[0]; index:
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className="relative group"
-            whileHover={{ scale: 1.03 }} 
+            whileHover={{ scale: 1.03 }}
         >
             <div className="absolute inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl opacity-20 group-hover:opacity-80 transition-all duration-500 blur-sm" />
 
             <div className="relative p-8 bg-black rounded-xl border border-white/10">
-                <div className="h-48 mb-6"> 
-                    <Canvas camera={{ position: [0, 0, 4] }}> 
+                <div className="h-48 mb-6">
+                    <Canvas camera={{ position: [0, 0, 4] }}>
                         <ambientLight intensity={0.4} />
                         <pointLight position={[5, 5, 5]} />
                         <AnimatedShape color={item.color} shape={item.shape} />
@@ -110,7 +110,7 @@ function ShowcaseCard({ item, index }: { item: (typeof showcaseItems)[0]; index:
                             strokeWidth="2"
                             initial={{ pathLength: 0 }}
                             animate={{ pathLength: 1 }}
-                            transition={{ duration: 2.5, ease: "easeInOut" }} 
+                            transition={{ duration: 2.5, ease: "easeInOut" }}
                         />
                     </svg>
                 </motion.div>
@@ -121,12 +121,11 @@ function ShowcaseCard({ item, index }: { item: (typeof showcaseItems)[0]; index:
 
 export function Showcase() {
     return (
-        <section className="py-24 relative overflow-hidden bg-gradient-to-r from-black via-purple-900/20 to-black md:bg-transparent">
-            <div className="absolute inset-0">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_500px_at_50%_50%,#3B0764,transparent)]" />
+        <section className="py-24 relative overflow-hidden">
+            <div className="hidden md:block absolute inset-0">
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black via-purple-900/20 to-black" />
             </div>
-
             <div className="container mx-auto px-4 relative">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
