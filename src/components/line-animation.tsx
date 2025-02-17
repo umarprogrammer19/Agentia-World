@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { useRef } from "react";
 
 export function LineAnimations() {
     const containerRef = useRef<HTMLDivElement>(null);
