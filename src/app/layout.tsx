@@ -15,6 +15,22 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <title>Agentia World - Next Generation AI</title>
+        <script
+          async
+          src="https://widget.kommunicate.io/v2/kommunicate.app"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.kommunicate = window.kommunicate || {};
+              window.kommunicate._globals = {
+                appId: "${process.env.NEXT_PUBLIC_KOMMUNICATE_APP_ID}",
+                popupWidget: true,
+                automaticChatOpenOnNavigation: true
+              };
+            `,
+          }}
+        />
       </head>
       <body className={`${spaceGrotesk.className} dark bg-black`}>
         <CustomCursor />

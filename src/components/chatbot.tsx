@@ -45,12 +45,13 @@ const ChatBot: React.FC = () => {
                 ) as HTMLElement | null;
 
                 if (chatWidget) {
-                    chatWidget.style.position = "fixed"; 
+                    chatWidget.style.position = "fixed";
                     chatWidget.style.bottom = "20px";
                     chatWidget.style.right = "20px";
                     chatWidget.style.width = "60px";
                     chatWidget.style.height = "60px";
                     chatWidget.style.zIndex = "99999";
+                    chatWidget.style.backgroundColor = "purple";
                     console.log("🎨 Chatbot widget styles applied.");
                 } else {
                     console.warn("⚠️ Chat widget not found after delay.");
@@ -73,7 +74,7 @@ const ChatBot: React.FC = () => {
         };
     }, []);
 
-    return null; 
+    return null;
 };
 
 export default ChatBot;
