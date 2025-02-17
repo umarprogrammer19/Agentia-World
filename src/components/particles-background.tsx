@@ -1,78 +1,40 @@
 "use client";
 
-import type { Container } from "@tsparticles/engine";
-import Particles from "@tsparticles/react";
 import { useCallback } from "react";
+import Particles from "react-tsparticles";
+import { loadFull } from "tsparticles";
 
 export function ParticlesBackground() {
-    const particlesLoaded = useCallback(async (container?: Container) => {
-        console.log(container);
+    const particlesInit = useCallback(async (engine: any) => {
+        await loadFull(engine);
     }, []);
 
     return (
         <Particles
-            className="absolute inset-0"
             id="tsparticles"
-            particlesLoaded={particlesLoaded} 
+            init={particlesInit}
             options={{
-                background: {
-                    color: {
-                        value: "transparent",
-                    },
-                },
-                fpsLimit: 120,
-                interactivity: {
-                    events: {
-                        onHover: {
-                            enable: true,
-                            mode: "repulse",
-                        },
-                        resize: {
-                            enable: true,
-                        },
-                    },
-                    modes: {
-                        repulse: {
-                            distance: 200,
-                            duration: 0.4,
-                        },
-                    },
-                },
+                fullScreen: { enable: true, zIndex: -1 },
                 particles: {
-                    color: {
-                        value: "#a855f7",
-                    },
-                    links: {
-                        color: "#a855f7",
-                        distance: 150,
-                        enable: true,
-                        opacity: 0.2,
-                        width: 1,
-                    },
+                    number: { value: 300, density: { enable: true, area: 800 } },
+                    color: { value: "#ffffff" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.6, random: true, animation: { enable: true, speed: 0.2 } },
+                    size: { value: 2, random: true },
                     move: {
                         enable: true,
-                        speed: 1,
-                        outModes: {
-                            default: "bounce",
-                        },
-                    },
-                    number: {
-                        density: {
-                            enable: true,
-                        },
-                        value: 80,
-                    },
-                    opacity: {
-                        value: 0.2,
-                    },
-                    shape: {
-                        type: "circle",
-                    },
-                    size: {
-                        value: { min: 1, max: 5 },
+                        speed: 1.5,
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        outModes: "out",
                     },
                 },
-                detectRetina: true,
+                interactivity: {
+                    events: { onHover: { enable: true, mode: "repulse" } },
+                    modes: { repulse: { distance: 100 } },
+                },
+                background: { color: "black" },
             }}
         />
     );
