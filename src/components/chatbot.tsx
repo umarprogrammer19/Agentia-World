@@ -3,10 +3,7 @@ import useKommunicate from "../hooks/useKommunicate";
 import { useEffect } from "react";
 
 const ChatBot: React.FC = () => {
-    useEffect(() => {
-        useKommunicate();
-    }, []);
-
+    useKommunicate();
     return null;
 };
 
