@@ -56,7 +56,7 @@ export function Navigation() {
                                 <motion.div key={item} whileHover={{ y: -2 }} whileTap={{ y: 0 }}>
                                     <Link
                                         href={`#${item.toLowerCase()}`}
-                                        className="text-sm text-gray-300 hover:text-cyan-400 transition-colors"
+                                        className="text-md text-gray-300 hover:text-cyan-400 transition-colors"
                                     >
                                         {item}
                                     </Link>
