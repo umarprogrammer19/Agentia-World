@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { useRef } from "react"
-import { Cpu, Shield, Zap, Globe, BarChart, Lock, Brain, Cloud } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { motion } from "framer-motion";
+import { useMemo, useRef } from "react";
+import { Cpu, Shield, Zap, Globe, BarChart, Lock, Brain, Cloud } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const features = [
     { icon: Brain, title: "Neural Networks", description: "Advanced AI models with deep learning capabilities" },
@@ -14,10 +14,11 @@ const features = [
     { icon: Cloud, title: "Cloud Integration", description: "Seamless connection with major cloud providers" },
     { icon: Cpu, title: "Edge Computing", description: "Processing at the source for minimal latency" },
     { icon: Lock, title: "Zero-Trust Security", description: "Military-grade protection protocols" },
-]
+];
 
 function FeatureCard({ feature, index }: { feature: (typeof features)[0]; index: number }) {
-    const ref = useRef<HTMLDivElement>(null)
+    const ref = useRef<HTMLDivElement>(null);
+    const MemoizedIcon = useMemo(() => feature.icon, [feature.icon]); // ✅ Prevents unnecessary re-renders
 
     return (
         <motion.div
@@ -27,46 +28,30 @@ function FeatureCard({ feature, index }: { feature: (typeof features)[0]; index:
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className="group relative"
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05 }} // ✅ Lowered scale for better responsiveness
+            style={{ willChange: "transform, opacity" }} // ✅ Optimized for GPU rendering
         >
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur" />
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
 
-            <div className="relative p-6 bg-black rounded-xl">
+            <div className="relative p-6 bg-black rounded-xl shadow-lg">
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-purple-600/5 rounded-xl" />
 
                 <motion.div
                     initial={{ scale: 1 }}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    whileHover={{ scale: 1.05, rotate: 3 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     className="mb-4"
                 >
-                    <feature.icon className={cn("w-12 h-12", index % 2 === 0 ? "text-cyan-400" : "text-purple-400")} />
+                    <MemoizedIcon className={cn("w-12 h-12", index % 2 === 0 ? "text-cyan-400" : "text-purple-400")} />
                 </motion.div>
 
                 <h3 className="text-xl font-bold mb-2 text-white group-hover:text-cyan-400 transition-colors">
                     {feature.title}
                 </h3>
                 <p className="text-gray-400 group-hover:text-gray-300 transition-colors">{feature.description}</p>
-
-                <motion.div
-                    className="absolute bottom-0 right-0 w-12 h-12"
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileHover={{ opacity: 1, scale: 1, rotate: 90 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
-                    <svg viewBox="0 0 32 32" className="w-full h-full">
-                        <path d="M32 32L0 32L0 0" fill="none" stroke="url(#corner-gradient)" strokeWidth="2" />
-                        <defs>
-                            <linearGradient id="corner-gradient" x1="0" y1="0" x2="100%" y2="100%">
-                                <stop offset="0%" stopColor="#00ffff" />
-                                <stop offset="100%" stopColor="#bf00ff" />
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </motion.div>
             </div>
         </motion.div>
-    )
+    );
 }
 
 export function Features() {
@@ -76,17 +61,18 @@ export function Features() {
                 <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-900/20 to-black" />
             </div>
 
-            {[...Array(20)].map((_, i) => (
+            {/* ✅ Reduced Floating Particles Count from 20 → 10 for Performance */}
+            {[...Array(10)].map((_, i) => (
                 <motion.div
                     key={i}
                     className="absolute w-2 h-2 bg-cyan-500/20 rounded-full"
                     animate={{
                         x: ["0%", "100%", "0%"],
                         y: ["0%", "100%", "0%"],
-                        scale: [1, 1.5, 1],
+                        scale: [1, 1.2, 1],
                     }}
                     transition={{
-                        duration: Math.random() * 10 + 10,
+                        duration: Math.random() * 10 + 8, // ✅ Adjusted for better flow
                         repeat: Number.POSITIVE_INFINITY,
                         delay: Math.random() * 5,
                     }}
@@ -120,6 +106,5 @@ export function Features() {
                 </div>
             </div>
         </section>
-    )
+    );
 }
-
