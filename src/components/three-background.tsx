@@ -10,16 +10,15 @@ export function ThreeBackground() {
     useEffect(() => {
         if (!containerRef.current) return;
 
-        // Scene setup
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         containerRef.current.appendChild(renderer.domElement);
 
-        // Create particles
         const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 2000; // Reduced for better performance
+        const particlesCount = 2000;
         const posArray = new Float32Array(particlesCount * 3);
 
         for (let i = 0; i < particlesCount * 3; i++) {
@@ -28,50 +27,60 @@ export function ThreeBackground() {
 
         particlesGeometry.setAttribute("position", new THREE.BufferAttribute(posArray, 3));
 
-        // Create material (with glow effect)
         const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.02, // Increased visibility
+            size: 0.02,
             color: "#00ffff",
             transparent: true,
-            opacity: 0.7, // Smooth blending effect
+            opacity: 0.6,
             blending: THREE.AdditiveBlending,
+            depthTest: false,
         });
 
-        // Create mesh
         const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
         scene.add(particlesMesh);
 
-        // Camera position
         camera.position.z = 2;
 
-        // Controls
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
-        controls.enableZoom = true; // Allows zooming for better interaction
+        controls.enableZoom = false;
         controls.autoRotate = true;
-        controls.autoRotateSpeed = 0.3; // Slower rotation for smoother effect
+        controls.autoRotateSpeed = 0.2;
 
-        // Animation
+        let animationFrameId: number;
+        let isActive = true;
+
         const animate = () => {
-            requestAnimationFrame(animate);
-            particlesMesh.rotation.y += 0.0008; // Slower for a smooth effect
+            if (!isActive) return;
+            particlesMesh.rotation.y += 0.0006;
             controls.update();
             renderer.render(scene, camera);
+            animationFrameId = requestAnimationFrame(animate);
         };
 
         animate();
 
-        // Handle resize
         const handleResize = () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         };
-
         window.addEventListener("resize", handleResize);
+
+        const handleVisibilityChange = () => {
+            isActive = !document.hidden;
+            if (isActive) animate();
+        };
+        document.addEventListener("visibilitychange", handleVisibilityChange);
 
         return () => {
             window.removeEventListener("resize", handleResize);
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+            cancelAnimationFrame(animationFrameId);
+            controls.dispose();
+            particlesGeometry.dispose();
+            particlesMaterial.dispose();
+            renderer.dispose();
             containerRef.current?.removeChild(renderer.domElement);
         };
     }, []);
