@@ -12,9 +12,11 @@ const ChatBot: React.FC = () => {
         }
 
         if (document.getElementById("kommunicate-script")) {
-            console.log("⚠️ Kommunicate script already loaded.");
+            console.warn("⚠️ Kommunicate script already exists. Skipping injection.");
             return;
         }
+
+        console.log("🚀 Injecting Kommunicate script...");
 
         const kommunicateSettings = {
             appId,
@@ -30,16 +32,20 @@ const ChatBot: React.FC = () => {
 
         script.onload = () => {
             console.log("✅ Kommunicate script loaded successfully!");
-            (window as any).kommunicate = (window as any).kommunicate || {};
+
+            if (!(window as any).kommunicate) {
+                (window as any).kommunicate = {};
+            }
+
             (window as any).kommunicate._globals = kommunicateSettings;
 
-            // Apply widget styling after a delay
             setTimeout(() => {
                 const chatWidget = document.querySelector(
                     ".kommunicate-widget-iframe"
                 ) as HTMLElement | null;
 
                 if (chatWidget) {
+                    chatWidget.style.position = "fixed"; 
                     chatWidget.style.bottom = "20px";
                     chatWidget.style.right = "20px";
                     chatWidget.style.width = "60px";
@@ -59,12 +65,15 @@ const ChatBot: React.FC = () => {
         document.body.appendChild(script);
 
         return () => {
-            console.log("🗑️ Removing Kommunicate script...");
-            document.body.removeChild(script);
+            console.log("🗑️ Cleaning up Kommunicate script...");
+            const existingScript = document.getElementById("kommunicate-script");
+            if (existingScript) {
+                document.body.removeChild(existingScript);
+            }
         };
     }, []);
 
-    return null;
+    return null; 
 };
 
 export default ChatBot;
