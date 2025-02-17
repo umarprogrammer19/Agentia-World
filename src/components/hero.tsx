@@ -10,19 +10,17 @@ import { useEffect, useRef, useMemo } from "react";
 import { TypeAnimation } from "react-type-animation";
 import * as THREE from "three";
 
-// ✅ Optimize Model Loading (Preload)
 function Model({ url }: { url: string }) {
     const { scene } = useGLTF(url);
     const scale = useMemo(() => (window.innerWidth < 768 ? [0.9, 0.9, 0.9] : [1.1, 1.1, 1.1]), []);
     return <primitive object={scene} scale={scale} />;
 }
 
-// ✅ Reduce Rotation Speed & Optimize Floating Effect
 function FloatingModel() {
     const modelRef = useRef<THREE.Group>(null);
 
     useFrame(() => {
-        if (modelRef.current) modelRef.current.rotation.y += 0.005; // ✅ Reduced for smoother animation
+        if (modelRef.current) modelRef.current.rotation.y += 0.005; 
     });
 
     return (
@@ -62,7 +60,6 @@ function AnimatedStars() {
     return <points ref={starsRef} />;
 }
 
-// ✅ Optimized Hero Section
 export function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
