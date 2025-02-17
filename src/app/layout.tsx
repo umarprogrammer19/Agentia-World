@@ -2,6 +2,7 @@ import { CustomCursor } from "@/components/custom-cursor"
 import { Space_Grotesk } from "next/font/google"
 import type React from "react"
 import "./globals.css"
+import ChatBot from "@/components/chatbot"
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] })
 
@@ -17,6 +18,7 @@ export default function RootLayout({
       </head>
       <body className={`${spaceGrotesk.className} dark bg-black`}>
         <CustomCursor />
+        <ChatBot />
         {children}
       </body>
     </html>
