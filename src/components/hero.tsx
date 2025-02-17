@@ -20,7 +20,7 @@ function FloatingModel() {
     const modelRef = useRef<THREE.Group>(null);
 
     useFrame(() => {
-        if (modelRef.current) modelRef.current.rotation.y += 0.005; 
+        if (modelRef.current) modelRef.current.rotation.y += 0.005;
     });
 
     return (
@@ -34,7 +34,7 @@ function FloatingModel() {
 
 function AnimatedStars() {
     const starsRef = useRef<THREE.Points>(null);
-    const starsCount = window.innerWidth < 768 ? 700 : 3500; 
+    const starsCount = window.innerWidth < 768 ? 700 : 3500;
 
     useEffect(() => {
         if (!starsRef.current) return;
@@ -48,12 +48,12 @@ function AnimatedStars() {
 
         geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
         starsRef.current.geometry = geometry;
-        starsRef.current.material = new THREE.PointsMaterial({ size: 1.5, color: 0xffffff, opacity: 0.8 }); 
+        starsRef.current.material = new THREE.PointsMaterial({ size: 1.5, color: 0xffffff, opacity: 0.8 });
     }, []);
 
     useFrame(() => {
         if (!starsRef.current) return;
-        starsRef.current.rotation.x += 0.00005; 
+        starsRef.current.rotation.x += 0.00005;
         starsRef.current.rotation.y += 0.00005;
     });
 
@@ -64,7 +64,7 @@ export function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
 
-    const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]); 
+    const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
     const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
     useGSAP(() => {
@@ -78,7 +78,7 @@ export function Hero() {
     }, []);
 
     return (
-        <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden py-20 bg-black/50">
+        <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden py-20 bg-black md:bg-black/50">
             <motion.div style={{ y, opacity }} className="text-center z-10">
                 <h1 className="hero-title text-4xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
                     The Future of AI
@@ -119,7 +119,7 @@ export function Hero() {
                     <pointLight position={[5, 5, 5]} />
                     <AnimatedStars />
                     <FloatingModel />
-                    <Environment preset="dawn" /> 
+                    <Environment preset="dawn" />
                 </Canvas>
             </div>
         </section>
