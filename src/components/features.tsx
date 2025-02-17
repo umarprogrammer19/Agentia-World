@@ -56,11 +56,15 @@ function FeatureCard({ feature, index }: { feature: (typeof features)[0]; index:
 
 export function Features() {
     return (
-        <section className="py-24 relative overflow-hidden bg-gradient-to-b from-black via-purple-900/20 to-black md:bg-transparent">
-            <div className="absolute inset-0 bg-grid-pattern opacity-5">
+        <section className="py-24 relative overflow-hidden bg-black/20 md:bg-transparent">
+            {/* <div className="absolute inset-0 bg-grid-pattern opacity-5">
                 <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-900/20 to-black" />
-            </div>
+            </div> */}
 
+            <div className="absolute inset-0">
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black via-purple-900/20 to-black" />
+            </div>
             {/* ✅ Reduced Floating Particles Count from 20 → 10 for Performance */}
             {[...Array(10)].map((_, i) => (
                 <motion.div

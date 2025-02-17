@@ -78,8 +78,8 @@ export function Contact() {
                             <div>
                                 <h3 className="text-xl font-bold mb-2 text-white">Email Us</h3>
                                 <p className="text-gray-400">Our friendly team is here to help.</p>
-                                <a href="mailto:hello@agentia.ai" className="text-cyan-500 hover:text-cyan-400 transition-colors">
-                                    hello@agentia.ai
+                                <a href="mailto:umarofficial0121@gmail.com" className="text-cyan-500 hover:text-cyan-400 transition-colors">
+                                    umarofficial0121@gmail.com
                                 </a>
                             </div>
                         </div>
@@ -98,7 +98,7 @@ export function Contact() {
                                 <h3 className="text-xl font-bold mb-2 text-white">Phone</h3>
                                 <p className="text-gray-400">Mon-Fri from 8am to 5pm.</p>
                                 <a href="tel:+1234567890" className="text-cyan-500 hover:text-cyan-400 transition-colors">
-                                    +1 (234) 567-890
+                                    +92 317 2472531
                                 </a>
                             </div>
                         </div>

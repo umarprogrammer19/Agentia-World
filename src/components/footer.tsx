@@ -92,7 +92,7 @@ export function Footer() {
                 >
                     <div className="flex flex-col md:flex-row justify-between items-center">
                         <p className="text-gray-400 text-sm mb-4 md:mb-0">
-                            © {new Date().getFullYear()} Agentia World. All rights reserved.
+                            © {new Date().getFullYear()} Hafiz Muhammad Umar Farooq. All rights reserved.
                         </p>
                         <div className="flex flex-wrap justify-center gap-4">
                             {techStack.map((tech, index) => (

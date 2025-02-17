@@ -78,7 +78,7 @@ export function Hero() {
     }, []);
 
     return (
-        <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden py-20">
+        <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden py-20 bg-black/50">
             <motion.div style={{ y, opacity }} className="text-center z-10">
                 <h1 className="hero-title text-4xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
                     The Future of AI
@@ -110,10 +110,9 @@ export function Hero() {
                 </div>
             </motion.div>
 
-            <div className="absolute inset-0 w-full h-full">
+            <div className="absolute inset-0 w-full h-full md:bg-transparent">
                 <Canvas
                     camera={{ position: [0, 0, 5], fov: 75 }}
-                    style={{ background: "black" }}
                     gl={{ powerPreference: "high-performance", antialias: true }}
                 >
                     <ambientLight intensity={0.4} />

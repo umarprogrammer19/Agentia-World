@@ -18,7 +18,7 @@ export function ThreeBackground() {
         containerRef.current.appendChild(renderer.domElement);
 
         const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 2000;
+        const particlesCount = 700;
         const posArray = new Float32Array(particlesCount * 3);
 
         for (let i = 0; i < particlesCount * 3; i++) {
