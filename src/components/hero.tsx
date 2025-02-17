@@ -89,11 +89,11 @@ export function Hero() {
                 <div className="hero-subtitle max-w-2xl mx-auto text-xl text-gray-300 mb-12 h-20">
                     <TypeAnimation
                         sequence={[
-                            "Experience the next generation of artificial intelligence",
+                            "Welcome to Agentia, a seamless ecosystem of AI agents communicating and collaborating intelligently.",
                             1500,
-                            "Powering innovations that shape tomorrow's world",
+                            "Imagine a world where every device, business, and city operates autonomously.",
                             1500,
-                            "Transforming industries with cutting-edge AI solutions",
+                            "Transforming industries with cutting-edge Agentic AI solutions",
                             1500,
                         ]}
                         wrapper="p"

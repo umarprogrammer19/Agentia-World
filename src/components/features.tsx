@@ -9,11 +9,11 @@ const features = [
     { icon: Brain, title: "Neural Networks", description: "Advanced AI models with deep learning capabilities" },
     { icon: Shield, title: "Quantum Security", description: "Next-generation encryption for ultimate data protection" },
     { icon: Zap, title: "Real-time Processing", description: "Millisecond response times with edge computing" },
-    { icon: Globe, title: "Global Infrastructure", description: "Distributed systems across 150+ data centers" },
+    { icon: Globe, title: "Seamless Integration", description: "Our platform enables effortless incorporation of AI agents." },
     { icon: BarChart, title: "Predictive Analytics", description: "Future-proof insights powered by machine learning" },
     { icon: Cloud, title: "Cloud Integration", description: "Seamless connection with major cloud providers" },
-    { icon: Cpu, title: "Edge Computing", description: "Processing at the source for minimal latency" },
-    { icon: Lock, title: "Zero-Trust Security", description: "Military-grade protection protocols" },
+    { icon: Cpu, title: "Autonomous Collaboration", description: "Experience AI agents that communicate autonomously." },
+    { icon: Lock, title: "Scalable Solutions", description: "our technology scales to meet diverse needs." },
 ];
 
 function FeatureCard({ feature, index }: { feature: (typeof features)[0]; index: number }) {

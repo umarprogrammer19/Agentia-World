@@ -7,22 +7,22 @@ import { Float, MeshWobbleMaterial } from "@react-three/drei";
 
 const showcaseItems = [
     {
-        title: "Neural Network Visualization",
-        description: "Real-time visualization of our AI models in action",
+        title: "Agentia World Platform",
+        description: "A comprehensive environment where AI agents operate and interact, demonstrating real-world applications.",
         stats: { accuracy: 99.9, speed: 0.001, nodes: 1000000 },
         color: "#00ffff",
         shape: "Torus",
     },
     {
-        title: "Quantum Processing",
-        description: "Quantum-inspired algorithms for complex problem solving",
+        title: "Panaversity Learning Hub",
+        description: "An educational platform utilizing agentic AI to provide personalized learning experiences.",
         stats: { qubits: 1024, coherence: 100, fidelity: 99.99 },
         color: "#ff00ff",
         shape: "Icosahedron",
     },
     {
-        title: "Edge Computing Network",
-        description: "Global network of edge computing nodes",
+        title: "MCP Server Network",
+        description: "A robust infrastructure supporting the deployment and management of multiple AI agents across various sectors.",
         stats: { nodes: 500, latency: 1, uptime: 99.999 },
         color: "#00ff00",
         shape: "Octahedron",

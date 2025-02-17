@@ -7,21 +7,21 @@ import { Float, MeshDistortMaterial } from "@react-three/drei";
 
 const services = [
     {
-        title: "AI Research & Development",
+        title: "Agentic AI Education",
         description:
-            "Pushing the boundaries of artificial intelligence with groundbreaking research and innovative solutions",
+            "Empower yourself with comprehensive courses on agent-based AI, transforming your skills for the future.",
         stats: ["99.9% Accuracy", "24/7 Operation", "1ms Response Time"],
         color: "#00ffff",
     },
     {
-        title: "Quantum Computing Solutions",
-        description: "Harnessing the power of quantum mechanics for unprecedented computational capabilities",
+        title: "AI Agent Marketplace",
+        description: "Access a diverse range of AI agents and Multi-Agent Control Protocol (MCP) servers tailored to various applications.",
         stats: ["1000+ Qubits", "Quantum Supremacy", "Error Correction"],
         color: "#bf00ff",
     },
     {
-        title: "Neural Architecture Design",
-        description: "Custom-built neural networks optimized for your specific use cases and requirements",
+        title: "Agentic Startup Incubation",
+        description: "Launch your AI-driven startup with our support, from concept to deployment.",
         stats: ["Adaptive Learning", "Self-Optimization", "Real-time Training"],
         color: "#00ff00",
     },
