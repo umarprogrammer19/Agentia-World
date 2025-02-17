@@ -116,7 +116,7 @@ function ServiceCard({ service, index }: { service: (typeof services)[0]; index:
 
 export function Services() {
     return (
-        <section className="py-24 relative overflow-hidden bg-black/20 md:bg-transparent">
+        <section className="py-24 relative overflow-hidden bg-black md:bg-transparent">
             <div className="hidden md:block absolute inset-0">
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]" />
                 <div className="absolute inset-0 bg-gradient-to-r from-black via-purple-900/20 to-black" />

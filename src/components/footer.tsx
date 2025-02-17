@@ -26,7 +26,7 @@ const data = [
 
 export function Footer() {
     return (
-        <footer className="relative py-20 overflow-hidden">
+        <footer className="relative py-20 overflow-hidden bg-black">
             <div className="absolute inset-0 md:bg-gradient-to-t md:from-purple-900/20 md:to-black" />
 
             <div className="md:block hidden absolute inset-0">

@@ -63,7 +63,7 @@ export function Contact() {
     };
 
     return (
-        <section id="contact" className="py-24 md:px-24 relative overflow-hidden md:bg-gradient-to-t md:from-purple-900/20 md:to-black">
+        <section id="contact" className="py-24 md:px-24 relative bg-black overflow-hidden md:bg-gradient-to-t md:from-purple-900/20 md:to-black">
             {/* Particle effects */}
             <div className="absolute inset-0">
                 {[...Array(50)].map((_, i) => (
