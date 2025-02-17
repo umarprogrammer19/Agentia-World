@@ -26,10 +26,10 @@ const data = [
 
 export function Footer() {
     return (
-        <footer className="relative py-20 bg-black overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-black" />
+        <footer className="relative py-20 overflow-hidden">
+            <div className="absolute inset-0 md:bg-gradient-to-t md:from-purple-900/20 md:to-black" />
 
-            <div className="absolute inset-0">
+            <div className="md:block hidden absolute inset-0">
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]" />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_100%_200px,#3B0764,transparent)]" />
             </div>
