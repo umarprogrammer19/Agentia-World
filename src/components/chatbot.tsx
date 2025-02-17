@@ -1,3 +1,4 @@
+"use client";
 import useKommunicate from "../hooks/useKommunicate";
 import { useEffect } from "react";
 
