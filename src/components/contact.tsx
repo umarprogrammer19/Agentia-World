@@ -160,7 +160,7 @@ export function Contact() {
                                         value={formState.name}
                                         onChange={handleInputChange}
                                         required
-                                        className="bg-transparent border-cyan-500/50 focus:border-cyan-500 text-white py-6"
+                                        className="bg-transparent border-cyan-500/50 focus:border-cyan-500 text-white py-8"
                                     />
                                     <label className={`absolute left-4 transition-all duration-300 ${formState.name ? "text-xs top-2 text-cyan-500" : "top-1/2 -translate-y-1/2"}`}>
                                         Your Name
@@ -174,7 +174,7 @@ export function Contact() {
                                         value={formState.email}
                                         onChange={handleInputChange}
                                         required
-                                        className="bg-transparent border-cyan-500/50 focus:border-cyan-500 text-white py-6"
+                                        className="bg-transparent border-cyan-500/50 focus:border-cyan-500 text-white py-8"
                                     />
                                     <label className={`absolute left-4 transition-all duration-300 ${formState.email ? "text-xs top-2 text-cyan-500" : "top-1/2 -translate-y-1/2"}`}>
                                         Your Email
@@ -187,7 +187,7 @@ export function Contact() {
                                         value={formState.subject}
                                         onChange={handleInputChange}
                                         required
-                                        className="bg-transparent border-cyan-500/50 focus:border-cyan-500 text-white py-6"
+                                        className="bg-transparent border-cyan-500/50 focus:border-cyan-500 text-white py-8"
                                     />
                                     <label className={`absolute left-4 transition-all duration-300 ${formState.subject ? "text-xs top-2 text-cyan-500" : "top-1/2 -translate-y-1/2"}`}>
                                         Subject
