@@ -1,80 +1,84 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Environment, Float, useGLTF } from "@react-three/drei"
-import { Canvas, useFrame } from "@react-three/fiber"
-import { motion, useScroll, useTransform } from "framer-motion"
-import { useGSAP } from "@gsap/react"
-import gsap from "gsap"
-import { useEffect, useRef } from "react"
-import { TypeAnimation } from "react-type-animation"
-import * as THREE from "three"
+import { Button } from "@/components/ui/button";
+import { Environment, Float, useGLTF } from "@react-three/drei";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { useEffect, useRef, useMemo } from "react";
+import { TypeAnimation } from "react-type-animation";
+import * as THREE from "three";
 
+// ✅ Optimize Model Loading (Preload)
 function Model({ url }: { url: string }) {
-    const { scene } = useGLTF(url)
-    const scale = window.innerWidth < 768 ? [1, 1, 1] : [1.3, 1.3, 1.3]
-    return <primitive object={scene} scale={scale} />
+    const { scene } = useGLTF(url);
+    const scale = useMemo(() => (window.innerWidth < 768 ? [0.9, 0.9, 0.9] : [1.1, 1.1, 1.1]), []);
+    return <primitive object={scene} scale={scale} />;
 }
 
+// ✅ Reduce Rotation Speed & Optimize Floating Effect
 function FloatingModel() {
-    const modelRef = useRef<THREE.Group>(null)
+    const modelRef = useRef<THREE.Group>(null);
 
     useFrame(() => {
-        if (modelRef.current) modelRef.current.rotation.y += 0.01 // Reduced rotation speed
-    })
+        if (modelRef.current) modelRef.current.rotation.y += 0.005; // ✅ Reduced for smoother animation
+    });
 
     return (
-        <Float speed={2} rotationIntensity={2} floatIntensity={3}>
+        <Float speed={1.5} rotationIntensity={1.5} floatIntensity={2}>
             <group ref={modelRef}>
                 <Model url="/brain.glb" />
             </group>
         </Float>
-    )
+    );
 }
 
 function AnimatedStars() {
-    const starsRef = useRef<THREE.Points>(null)
-    const starsCount = window.innerWidth < 768 ? 1500 : 3000
+    const starsRef = useRef<THREE.Points>(null);
+    const starsCount = window.innerWidth < 768 ? 700 : 3500; 
 
     useEffect(() => {
-        if (!starsRef.current) return
+        if (!starsRef.current) return;
 
-        const geometry = new THREE.BufferGeometry()
-        const vertices = []
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
 
         for (let i = 0; i < starsCount; i++) {
-            vertices.push((Math.random() - 0.5) * 2000, (Math.random() - 0.5) * 2000, (Math.random() - 0.5) * 2000)
+            vertices.push((Math.random() - 0.5) * 1500, (Math.random() - 0.5) * 1500, (Math.random() - 0.5) * 1500);
         }
 
-        geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3))
-
-        const material = new THREE.PointsMaterial({ size: 2, color: 0xffffff })
-
-        starsRef.current.geometry = geometry
-        starsRef.current.material = material
-    }, [])
+        geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
+        starsRef.current.geometry = geometry;
+        starsRef.current.material = new THREE.PointsMaterial({ size: 1.5, color: 0xffffff, opacity: 0.8 }); 
+    }, []);
 
     useFrame(() => {
-        if (!starsRef.current) return
-        starsRef.current.rotation.x += 0.0001 // Reduced speed
-        starsRef.current.rotation.y += 0.0001
-    })
+        if (!starsRef.current) return;
+        starsRef.current.rotation.x += 0.00005; 
+        starsRef.current.rotation.y += 0.00005;
+    });
 
-    return <points ref={starsRef} />
+    return <points ref={starsRef} />;
 }
 
+// ✅ Optimized Hero Section
 export function Hero() {
-    const containerRef = useRef<HTMLDivElement>(null)
-    const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] })
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
 
-    const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
-    const opacity = useTransform(scrollYProgress, [0, 1], [1, 0])
+    const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]); 
+    const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
     useGSAP(() => {
-        gsap.from(".hero-title", { y: 100, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.2 })
-        gsap.from(".hero-subtitle", { y: 50, opacity: 0, duration: 1, delay: 0.5, ease: "power3.out" })
-        gsap.from(".hero-button", { y: 50, opacity: 0, duration: 1, delay: 0.8, ease: "power3.out", stagger: 0.2 })
-    }, [])
+        gsap.fromTo(
+            ".hero-title",
+            { y: 80, opacity: 0 },
+            { y: 0, opacity: 1, duration: 1, ease: "power3.out", stagger: 0.2 }
+        );
+        gsap.fromTo(".hero-subtitle", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: 0.5 });
+        gsap.fromTo(".hero-button", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: 0.8 });
+    }, []);
 
     return (
         <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden py-20">
@@ -89,11 +93,11 @@ export function Hero() {
                     <TypeAnimation
                         sequence={[
                             "Experience the next generation of artificial intelligence",
-                            1000,
+                            1500,
                             "Powering innovations that shape tomorrow's world",
-                            1000,
+                            1500,
                             "Transforming industries with cutting-edge AI solutions",
-                            1000,
+                            1500,
                         ]}
                         wrapper="p"
                         speed={50}
@@ -110,14 +114,18 @@ export function Hero() {
             </motion.div>
 
             <div className="absolute inset-0 w-full h-full">
-                <Canvas camera={{ position: [0, 0, 5], fov: 75 }} style={{ background: "black" }}>
-                    <ambientLight intensity={0.5} />
-                    <pointLight position={[10, 10, 10]} />
+                <Canvas
+                    camera={{ position: [0, 0, 5], fov: 75 }}
+                    style={{ background: "black" }}
+                    gl={{ powerPreference: "high-performance", antialias: true }}
+                >
+                    <ambientLight intensity={0.4} />
+                    <pointLight position={[5, 5, 5]} />
                     <AnimatedStars />
                     <FloatingModel />
-                    <Environment preset="city" />
+                    <Environment preset="dawn" /> 
                 </Canvas>
             </div>
         </section>
-    )
+    );
 }

@@ -45,7 +45,7 @@ export function Navigation() {
                 <div className="container mx-auto px-4">
                     <div className="flex items-center justify-between h-16"> 
 
-                        <Link href="/" className="text-xl font-bold">
+                        <Link href="/" className="text-2xl font-bold">
                             <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
                                 Agentia
                             </span>
