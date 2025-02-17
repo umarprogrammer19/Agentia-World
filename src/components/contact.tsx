@@ -24,7 +24,7 @@ export function Contact() {
     }
 
     return (
-        <section id="contact" className="py-24 md:px-24 relative overflow-hidden bg-gradient-to-r from-black via-purple-900/20 to-black md:bg-transparent">
+        <section id="contact" className="py-24 md:px-24 relative overflow-hidden">
             {/* Particle effects */}
             <div className="absolute inset-0 pointer-events-none">
                 {[...Array(50)].map((_, i) => (
