@@ -16,6 +16,7 @@
     "@studio-freight/lenis": "^1.0.42",
     "@tsparticles/engine": "^3.8.1",
     "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.8.1",
     "aos": "^2.3.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -27,19 +28,15 @@
     "react": "^18",
     "react-dom": "^18",
     "react-intersection-observer": "^9.15.1",
-    "react-particles": "^2.12.2",
     "react-scroll-parallax": "^3.4.5",
     "react-spring": "^9.7.5",
-    "react-tsparticles": "^2.12.2",
     "react-type-animation": "^3.2.0",
     "recharts": "^2.15.1",
     "sharp": "^0.33.5",
     "split-type": "^0.3.4",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
-    "three": "^0.173.0",
-    "tsparticles": "^3.8.1",
-    "tsparticles-slim": "^2.12.0"
+    "three": "^0.173.0"
   },
   "devDependencies": {
     "@types/aos": "^3.0.7",
