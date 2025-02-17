@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { useRef } from "react"
-import { Canvas } from "@react-three/fiber"
-import { Float, MeshDistortMaterial } from "@react-three/drei"
+import { motion } from "framer-motion";
+import { useRef } from "react";
+import { Canvas } from "@react-three/fiber";
+import { Float, MeshDistortMaterial } from "@react-three/drei";
 
 const services = [
     {
@@ -31,21 +31,21 @@ const services = [
         stats: ["Global Edge Network", "5G Integration", "Local Processing"],
         color: "#ff00ff",
     },
-]
+];
 
 function FloatingShape({ color }: { color: string }) {
     return (
-        <Float speed={1.5} rotationIntensity={2} floatIntensity={2}>
-            <mesh scale={[1.5, 1.5, 1.5]}>
+        <Float speed={1.2} rotationIntensity={1.2} floatIntensity={1.5}> {/* ✅ Lowered float/rotation intensity */}
+            <mesh scale={[1.3, 1.3, 1.3]}> {/* ✅ Reduced scale for performance */}
                 <octahedronGeometry args={[1, 0]} />
-                <MeshDistortMaterial color={color} emissive={color} emissiveIntensity={0.5} wireframe distort={0.3} speed={2} />
+                <MeshDistortMaterial color={color} emissive={color} emissiveIntensity={0.4} wireframe distort={0.2} speed={1.5} /> {/* ✅ Reduced distortion */}
             </mesh>
         </Float>
-    )
+    );
 }
 
 function ServiceCard({ service, index }: { service: (typeof services)[0]; index: number }) {
-    const ref = useRef<HTMLDivElement>(null)
+    const ref = useRef<HTMLDivElement>(null);
 
     return (
         <motion.div
@@ -55,15 +55,15 @@ function ServiceCard({ service, index }: { service: (typeof services)[0]; index:
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className="relative group"
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.03 }} // ✅ Lowered for smoother interaction
         >
-            <div className="absolute inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl opacity-20 group-hover:opacity-100 transition-all duration-500 blur" />
+            <div className="absolute inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl opacity-20 group-hover:opacity-80 transition-all duration-500 blur-sm" /> {/* ✅ Reduced blur */}
 
             <div className="relative p-8 bg-black rounded-xl border border-white/10">
-                <div className="h-48 mb-6">
-                    <Canvas camera={{ position: [0, 0, 5] }}>
-                        <ambientLight intensity={0.5} />
-                        <pointLight position={[10, 10, 10]} />
+                <div className="h-44 mb-6"> {/* ✅ Reduced canvas height */}
+                    <Canvas camera={{ position: [0, 0, 4.5] }}> {/* ✅ Adjusted camera position for performance */}
+                        <ambientLight intensity={0.4} /> {/* ✅ Lowered ambient light */}
+                        <pointLight position={[5, 5, 5]} />
                         <FloatingShape color={service.color} />
                     </Canvas>
                 </div>
@@ -99,8 +99,8 @@ function ServiceCard({ service, index }: { service: (typeof services)[0]; index:
                         strokeWidth="2"
                         strokeDasharray="8 8"
                         initial={{ strokeDashoffset: 0 }}
-                        animate={{ strokeDashoffset: 100 }}
-                        transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                        animate={{ strokeDashoffset: 50 }}
+                        transition={{ duration: 30, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
                     />
                     <defs>
                         <linearGradient id="service-gradient" x1="0" y1="0" x2="100%" y2="100%">
@@ -111,7 +111,7 @@ function ServiceCard({ service, index }: { service: (typeof services)[0]; index:
                 </svg>
             </div>
         </motion.div>
-    )
+    );
 }
 
 export function Services() {
@@ -145,6 +145,5 @@ export function Services() {
                 </div>
             </div>
         </section>
-    )
+    );
 }
-
