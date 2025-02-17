@@ -56,7 +56,7 @@ function FeatureCard({ feature, index }: { feature: (typeof features)[0]; index:
 
 export function Features() {
     return (
-        <section className="py-24 relative overflow-hidden">
+        <section className="py-24 relative overflow-hidden bg-black/60">
 
             <div className="hidden md:block absolute inset-0">
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]" />
