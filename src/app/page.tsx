@@ -12,12 +12,11 @@ import { Pricing } from "@/components/pricing";
 import { Services } from "@/components/services";
 import { Showcase } from "@/components/showcase";
 import { Testimonials } from "@/components/testimonials";
-import dynamic from "next/dynamic";
+import { ThreeBackground } from "@/components/three-background";
+import Lenis from "@studio-freight/lenis";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { ParallaxProvider } from "react-scroll-parallax";
-import Lenis from "@studio-freight/lenis";
-import { ThreeBackground } from "@/components/three-background";
 
 
 export default function Page() {
