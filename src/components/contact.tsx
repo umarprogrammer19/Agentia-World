@@ -55,6 +55,7 @@ export function Contact() {
                 setResponseMessage(result.message || "Something went wrong. Please try again.");
             }
         } catch (error) {
+            console.log(error);
             setResponseMessage("Failed to send message. Please check your internet connection.");
         } finally {
             setLoading(false);
